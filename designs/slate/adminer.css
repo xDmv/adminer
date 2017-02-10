@@ -96,6 +96,15 @@ p#tables a{
 p#tables a:hover{
 	color: #ffffff; background-color: #49515a; text-decoration: underline;
 }
+p#breadcrumb{
+	color: #ffffff; background-color: #272b30; text-decoration: none;
+}
+p#breadcrumb a{
+	color: #ffffff; background-color: #272b30; text-decoration: none;
+}
+p#breadcrumb a:hover{ 
+	color: #ffffff; background-color: #272b30; text-decoration: underline;
+}
 /*
 h1,
 h2,
