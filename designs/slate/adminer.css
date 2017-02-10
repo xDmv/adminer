@@ -88,13 +88,13 @@ input{
 	color: #ffffff; background-color: #464545;
 }
 p#tables{
-	color: #ffffff; background-color: #464545;
+	color: #ffffff; background-color: #2e3338; text-decoration: none;
 }
 p#tables a{
-	color: #ffffff; background-color: #464545; text-decoration: none;
+	color: #ffffff; background-color: #2e3338; 
 }
 p#tables a:hover{
-	color: #ffffff; background-color: #464545; text-decoration: underline;
+	color: #ffffff; background-color: #49515a; text-decoration: underline;
 }
 /*
 h1,
