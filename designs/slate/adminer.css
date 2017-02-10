@@ -111,7 +111,10 @@ p#breadcrumb a:hover{
 table, thead, tr, th{
 	color: #ffffff; background-color: #2e3338; text-decoration: none;
 }
-
+form>table>tr:hover{
+	background-color: #49515a; text-decoration: underline;
+}
+/* выпадающий список*/
 select,option {
   color: #ffffff;
   background-color: #464545;	
@@ -119,4 +122,90 @@ select,option {
 option:hover{
 	color: #ffffff;
 	text-decoration: underline;
+}
+/*поле ввода SQL-запроса */
+div p{
+	text-decoration: none;
+}
+
+
+.sqlarea{
+	background-color: #464545;
+}
+
+
+span.jush-sql_code{
+	color: #ffffff;  text-decoration: none;
+}
+.jush a{
+	color: #ffffff;  text-decoration: underline;
+}
+span.jush-num{
+	color: #5ebf4f;
+}
+.jush-php_quo, 
+.jush-quo, 
+.jush-quo_one, 
+.jush-php_eot, 
+.jush-apo, 
+.jush-sql_apo, 
+.jush-sqlite_apo, 
+.jush-sql_quo, 
+.jush-sql_eot{
+	color: #5bb6ad;
+}
+
+/*изменяем кнопки на bootstrap*/
+p>input{
+	color: #ffffff;
+	background-color: #3a3f44;
+	border-color: #3a3f44;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;	
+}
+p>input:focus
+{
+  color: #ffffff;
+  background-color: #232628;
+  border-color: #000000;
+  text-decoration: none;
+}
+p>input:hover {
+  color: #ffffff;
+  background-color: #232628;
+  border-color: #1e2023;
+}
+p>input:active
+{
+  outline: 0;
+  color: #ffffff;
+  background-color: #232628;
+  border-color: #1e2023;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+p>input:active:hover
+ {
+  color: #ffffff;
+  background-color: #121415;
+  border-color: #000000;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
