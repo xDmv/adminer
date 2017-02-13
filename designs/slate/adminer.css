@@ -59,7 +59,7 @@ table a[href*="&edit="][href*="&where"] {background:url("data:image/png;base64,i
 
 table input + a[href*="&edit="][href*="&where"] {width:0; float:left; display:block; height:16px; overflow:hidden; text-decoration:none; padding:0 0 0 18px; background-position:2px bottom;}
 
-table thead #all-page + a {background:#ff0000 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFUSURBVDjLrZM/SAJxGIZdWwuDlnCplkAEm1zkaIiGFFpyMIwGK5KGoK2lphDKkMDg3LLUSIJsSKhIi+684CokOtTiMizCGuzEU5K3vOEgKvtBDe/2Pc8H3x8NAM1fQlx4H9M3pcOWp6TXWmM8A7j0629v1nraiAVC0IrrwATKIgs5xyG5QiE+Z4iQdoeU2oAsnqCSO1NSTu+D9VhqRLD8nIB8F0Q2MgmJDyipCzjvYJkIfpN2UBLG8MpP4dxvQ3ZzGuyyBQ2H+AnOOCBd9aL6soh81A5hyYSGWyCFvxUcerqI4S+CvYVOFPMHxLAq8I3qdHVY5LbBhJzEsCrwutpRFBlUHy6wO2tEYtWAzLELPN2P03kjfj3luqDycV2F8AgefWbEnVqEHa2IznSD6BdsVDNStB0lfh0FPoQjdx8RrAqGzC0YprSgxzsUMOY2bf37N/6Ud1Vc9yYcH50CAAAAAElFTkSuQmCC") no-repeat scroll right bottom; padding-right:18px;}
+table thead #all-page + a {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFUSURBVDjLrZM/SAJxGIZdWwuDlnCplkAEm1zkaIiGFFpyMIwGK5KGoK2lphDKkMDg3LLUSIJsSKhIi+684CokOtTiMizCGuzEU5K3vOEgKvtBDe/2Pc8H3x8NAM1fQlx4H9M3pcOWp6TXWmM8A7j0629v1nraiAVC0IrrwATKIgs5xyG5QiE+Z4iQdoeU2oAsnqCSO1NSTu+D9VhqRLD8nIB8F0Q2MgmJDyipCzjvYJkIfpN2UBLG8MpP4dxvQ3ZzGuyyBQ2H+AnOOCBd9aL6soh81A5hyYSGWyCFvxUcerqI4S+CvYVOFPMHxLAq8I3qdHVY5LbBhJzEsCrwutpRFBlUHy6wO2tEYtWAzLELPN2P03kjfj3luqDycV2F8AgefWbEnVqEHa2IznSD6BdsVDNStB0lfh0FPoQjdx8RrAqGzC0YprSgxzsUMOY2bf37N/6Ud1Vc9yYcH50CAAAAAElFTkSuQmCC") no-repeat scroll right bottom; padding-right:18px;}
 table thead #all-page + a {width:0; display:inline-block; height:16px; overflow:hidden; text-decoration:none; padding:0 0 0 16px;}
 table td:first-child { white-space:nowrap; background-color: #49515a;}
 
@@ -69,6 +69,7 @@ input[name="delete"]:hover, input[name="drop"]:hover {color:#ee5f59; background-
 input[name="logout"] {color: #ffffff; background:transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJHSURBVDjLlZPNi81hFMc/z7137p1mTCFvNZfGSzLIWNjZKRvFRoqNhRCSYm8xS3+AxRRZ2JAFJWJHSQqTQkbEzYwIM+6Yid/znJfH4prLXShOnb6r8/nWOd8Tcs78bz0/f+KMu50y05nK/wy+uHDylbutqS5extvGcxaWqtoGDA8PZ3dnrs2srQc2Zko41UXLmLdyDW5OfvsUkUgbYGbU63UAQggdmvMzFmzZCgTi7CQmkZwdEaX0JwDgTnGbTCaE0G4zw80omhPI92lcEtkNkdgJCCHwJX7mZvNaB0A14SaYJlwTrpHsTkoFlV1nt2c3x5YYo1/vM9A/gKpxdfwyu/v3teCayKq4JEwT5EB2R6WgYmrs2bYbcUNNUVfEhIfFYy69uci+1fuRX84mkawFSxd/4nVWUopUVIykwlQxRTJBTIDA4Pp1jBZPuNW4wUAPmCqWIn29X1k4f5Ku8g9mpKCkakRLVEs1auVuauVuyqHMo8ejNCe+sWPVTkQKXCMmkeZUmUZjETF1tc6ooly+fgUVw9So1/tRN6YnZji46QghBFKKuAouERNhMlbAHZFE6e7pB+He8MMw+GGI4xtOMf1+lsl3TQ4NHf19BSlaO1DB9BfMHdX0O0iqSgiBbJkjm491hClJbA1LxCURgpPzXwAHhg63necAIi3XngXLcRU0fof8ETMljIyM5LGxMcbHxzvy/6fuXdWgt6+PWncv1e4euqo1ZmabvHs5+jn8yzufO7hiiZmuNpNBM13rbvVSpbrXJE7/BMkHtU9jFIC/AAAAAElFTkSuQmCC") no-repeat scroll right center; padding:1px 22px 1px 5px; border:0; cursor:pointer; font-size:.9em;}
 input[name="logout"]:hover {color:#ee5f59;}
 
+/* my kod */
 html, body,p {
   color: #ffffff; background-color: #272b30;
 }
@@ -129,9 +130,12 @@ div p{
 }
 
 span.jush-sql_code{
-	color: #ffffff; background-color: #272b30; text-decoration: none;
+	color: #ffffff; text-decoration: none;
 }
 .jush a{
+	color: #ffffff;  text-decoration: none;
+}
+.jush a:hover{
 	color: #ffffff;  text-decoration: underline;
 }
 
@@ -149,7 +153,9 @@ span.jush-num{
 .jush-sql_eot{
 	color: #5bb6ad; /* цвет текста в ковычках*/
 }
-
+.jush-bac, .jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo{
+	color: #ffffff;
+}
 /*изменяем кнопки на bootstrap*/
 p>input{
 	color: #ffffff;
@@ -206,35 +212,15 @@ p>input:active:hover
 }
 /*таблицы*/
 table, thead, tr, th, td{
-	color: #ffffff; background-color: #2e3338 !important; text-decoration: none;	
+	color: #ffffff; background-color: #464545 ; text-decoration: none;	
+}
+thead td, thead th{
+	background-color: #464545;
 }
 table.checkable>tbody>tr{
-	color: #ffffff; background-color: #2e3338; text-decoration: none;
+	color: #ffffff; background-color: #464545; text-decoration: none;
 }
-table.checkable>tbody>tr.odd{
-	color: #272b30; background-color: #464545; text-decoration: none;
-}
-table.checkable>tbody>tr.odd:hover{
-	color: #3498db; background: #464545 !important; text-decoration: none;
-}
-table.checkable>tbody>tr.odd>th>a{
-	color: #ffffff;  text-decoration: none;
-}
-table.checkable>tbody>tr.odd>th>a:hover{
-	  text-decoration: underline;
-}
-table.checkable>tbody>tr>th>a{
-	color: #ffffff;  text-decoration: none;
-}
-table.checkable>tbody>tr>th>a:hover{
-	color: #464545;  text-decoration: underline;
-}
-table.checkable>thead>tr.wrap>td{
-	color: #ffffff; background-color: #2e3338; text-decoration: none;
-}
-table.checkable>thead>tr.wrap>th{
-	color: #ffffff; background-color: #2e3338; text-decoration: none;
-}
+
 th a{
 	color: #ffffff !important;  text-decoration: none;
 }
@@ -247,16 +233,47 @@ td a{
 td a:hover{
 	color: #ffffff !important;  text-decoration: underline;
 }
-tr.odd{
-	color: #c4ad8d !important; background-color: #49515a !important; 
+tbody tr:hover td,
+tbody tr:hover th{
+	color: #ffffff !important; background-color: #49515a !important;
 }
-tr.odd:hover{
-	color: #ffffff !important; background-color: #2e3338 !important; 
+.odd td{
+	color: #c8c8bd ; background-color: #2e3338;
 }
-/* */
+.odd td:hover{
+	color: #ffffff !important; background-color: rgba(0, 0, 0, 0.5) ;
+}
+/* устроняю шераховатости */
 legend a{
 	color: #ffffff;  text-decoration: none;
 }
 legend a:hover{
 	color: #ffffff !important;  text-decoration: underline;
 }
+code{
+	background-color: #464545;	
+}
+table td:first-child{
+	background-color: #464545;
+}
+
+table th:first-child{
+	background-color: #464545 ;
+}
+table.checkable>thead>th{
+	background-color: #464545;
+}
+a{
+	color: #ffffff !important;  text-decoration: none !important;
+}
+a:hover{
+	color: #ffffff !important;  text-decoration: underline !important;
+}
+/*
+table.checkable>tbody>tr{
+	color: rgba(0, 0, 0, 0.3)!important;  background-color: #272b30 !important;
+}
+table.checkable>tbody>tr:hover{
+	color: #ff00ff !important;  background-color: #272b30 !important;
+}
+*/
