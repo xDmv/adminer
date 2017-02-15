@@ -21,10 +21,10 @@ a[href$="&import="] {background:transparent;padding-left:22px;}
 @media all and (min-device-width: 880px) {
   #menu .links {height:20px; transition:.2s; font-size: 10px}
   
-  #menu .links a {color: #ffffff; text-decoration: none;  transition:.2s; display:inline-block; margin-bottom:-1.25em;}
+  #menu .links a {color: #c8c8c8; text-decoration: none;  transition:.2s; display:inline-block; margin-bottom:-1.25em;}
 
-  #menu .links:hover a {color:#ffffff; height:15px; }
-  #menu .links a:hover {color:#ffffff; text-decoration: underline;}
+  #menu .links:hover a {color:#c8c8c8; height:15px; }
+  #menu .links a:hover {color:#c8c8c8; text-decoration: underline;}
 }
 
 #menu p a[href*="&select="] {background:transparent;background-color: #464545; clear:left; display:block; float:left; height:16px; margin-right:8px; padding-top:1px; overflow:hidden; padding-left:16px; width:0; text-decoration:none;}
@@ -33,8 +33,8 @@ a[href$="&import="] {background:transparent;padding-left:22px;}
 
 #menu p#tables br {display:none;}
 
-.links a[href*="&create="] {color: #ffffff; background-color: #272b30; padding-left:22px;}
-.links a[href$="&create="] {color: #ffffff; background-color: #272b30; padding-left:22px;}
+.links a[href*="&create="] {color: #c8c8c8; background-color: #272b30; padding-left:22px;}
+.links a[href$="&create="] {color: #c8c8c8; background-color: #272b30; padding-left:22px;}
 
 #content p a[href*="&create="] {background:transparent; padding-left:22px;}
 #content p a[href*="&select="] {background:transparent; padding-left:22px;}
@@ -44,7 +44,7 @@ a[href$="&import="] {background:transparent;padding-left:22px;}
 #content p a[href*="&table="] {background:transparent; padding-left:22px;}
 th a[href*="&table="]  { background:transparent; padding-left:22px;}
 
-.links #content a[href*="&database="] {color: #ffffff;text-decoration: none;  background-color: #272b30; padding-left:22px;}
+.links #content a[href*="&database="] {color: #c8c8c8;text-decoration: none;  background-color: #272b30; padding-left:22px;}
 #content p a[href*="&schema="] {background:transparent; padding-left:22px;}
 #content p a[href*="&privileges="] {background:transparent; padding-left:22px;}
 
@@ -53,8 +53,8 @@ th a[href*="&table="]  { background:transparent; padding-left:22px;}
 
 #content p a[href*="&refresh="] {padding-left:22px;}
 
-#content p a[href*="&sql="] {color: #ffffff; text-decoration: none; padding-left:24px;}
-#content p a[href*="&sql="]:hover {color: #ffffff; text-decoration: underline; padding-left:24px;}
+#content p a[href*="&sql="] {color: #c8c8c8; text-decoration: none; padding-left:24px;}
+#content p a[href*="&sql="]:hover {color: #c8c8c8; text-decoration: underline; padding-left:24px;}
 table tbody input[name*="check"] {display:block; float:left;}
 
 table a[href*="&edit="][href*="&where"] {padding-right:18px;}
@@ -65,60 +65,60 @@ table thead #all-page + a {padding-right:18px;}
 table thead #all-page + a {width:0; display:inline-block; height:16px; overflow:hidden; text-decoration:none; padding:0 0 0 16px;}
 table td:first-child { white-space:nowrap; }
 
-input[name="delete"], input[name="drop"] {color: #ffffff; padding:1px 5px 1px 18px; border:0; cursor:pointer; font-size:.9em;}
+input[name="delete"], input[name="drop"] {color: #c8c8c8; padding:1px 5px 1px 18px; border:0; cursor:pointer; font-size:.9em;}
 input[name="delete"]:hover, input[name="drop"]:hover {color:#ee5f59; }
 
-input[name="logout"] {color: #ffffff; padding:1px 22px 1px 5px; border:0; cursor:pointer; font-size:.9em;}
+input[name="logout"] {color: #c8c8c8; padding:1px 22px 1px 5px; border:0; cursor:pointer; font-size:.9em;}
 input[name="logout"]:hover {color:#ee5f59;}
 
 /* my kod */
-html, body,p {
-  color: #ffffff; background-color: #272b30;
+html, body {
+  color: #c8c8c8; background-color: #272b30;
 }
-h1,h2{
-  color: #ffffff;
+h1,h2,p{
+  color: #c8c8c8;
   background-color: #272b30;	
 }
 div p{
-	color: #ffffff; background-color: #272b30; text-decoration: underline;
+	color: #c8c8c8; background-color: #272b30; text-decoration: underline;
 }
 .links a{
-	color: #ffffff; background-color: #272b30; text-decoration: none;
+	color: #c8c8c8; background-color: #272b30; text-decoration: none;
 }
 .links a:hover{
-	color: #ffffff; text-decoration: underline;
+	color: #c8c8c8; text-decoration: underline;
 }
 input{
-	color: #ffffff; background-color: #464545;
+	color: #c8c8c8; background-color: #464545;
 }
 /*меню слева, имена таблиц*/
 p#tables{
-	color: #ffffff; background-color: #2e3338; text-decoration: none;
+	color: #c8c8c8; background-color: #2e3338; text-decoration: none;
 }
 p#tables a{
-	color: #ffffff; background-color: #2e3338; 
+	color: #c8c8c8; background-color: #2e3338; 
 }
 p#tables a:hover{
-	color: #ffffff; background-color: #49515a; text-decoration: underline; padding-left: 1px; padding-right: 5px;
+	color: #c8c8c8; background-color: #3e444c; text-decoration: underline; padding-left: 1px; padding-right: 5px;
 }
 /*вверху ссылка на корневую базу*/
 p#breadcrumb{
-	color: #ffffff; background-color: #272b30; text-decoration: none;
+	color: #c8c8c8; background-color: #272b30; text-decoration: none;
 }
 p#breadcrumb a{
-	color: #ffffff; background-color: #272b30; text-decoration: none;
+	color: #c8c8c8; background-color: #272b30; text-decoration: none;
 }
 p#breadcrumb a:hover{ 
-	color: #ffffff; text-decoration: underline;
+	color: #c8c8c8; text-decoration: underline;
 }
 
 /* выпадающий список*/
 select,option {
-  color: #ffffff;
+  color: #c8c8c8;
   background-color: #464545;	
 }
 option:hover{
-	color: #ffffff;
+	color: #c8c8c8;
 	text-decoration: underline;
 }
 
@@ -132,13 +132,13 @@ div p{
 }
 
 span.jush-sql_code{
-	color: #ffffff; text-decoration: none;
+	color: #c8c8c8; text-decoration: none;
 }
 .jush a{
-	color: #ffffff;  text-decoration: none;
+	color: #c8c8c8;  text-decoration: none;
 }
 .jush a:hover{
-	color: #ffffff;  text-decoration: underline;
+	color: #c8c8c8;  text-decoration: underline;
 }
 
 span.jush-num{
@@ -156,11 +156,11 @@ span.jush-num{
 	color: #5bb6ad; /* цвет текста в ковычках*/
 }
 .jush-bac, .jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo{
-	color: #ffffff;
+	color: #c8c8c8;
 }
 /*изменяем кнопки на bootstrap*/
 input{
-	color: #ffffff;
+	color: #c8c8c8;
 	background-color: #3a3f44;
 	border-color: #3a3f44;
   display: inline-block;
@@ -186,20 +186,20 @@ input{
 }
 input:focus
 {
-  color: #ffffff;
+  color: #c8c8c8;
   background-color: #232628;
   border-color: #000000;
   text-decoration: none;
 }
 input:hover {
-  color: #ffffff;
+  color: #c8c8c8;
   background-color: #232628;
   border-color: #1e2023;
 }
 input:active
 {
   outline: 0;
-  color: #ffffff;
+  color: #c8c8c8;
   background-color: #232628;
   border-color: #1e2023;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -207,7 +207,7 @@ input:active
 }
 input:active:hover
  {
-  color: #ffffff;
+  color: #c8c8c8;
   background-color: #121415;
   border-color: #000000;
   outline: 5px auto -webkit-focus-ring-color;
@@ -215,7 +215,7 @@ input:active:hover
 }
 /*таблицы*/
 table, thead, tr, th, td{
-	color: #ffffff; background-color: #464545 ; text-decoration: none;	
+	color: #c8c8c8; background-color: #353a41 ; text-decoration: none;	
 }
 thead td, thead th{
 	background-color: #1c1e22; /* фон титула таблицы*/
@@ -228,85 +228,71 @@ table>thead>tr.wrap>th{
 }
 
 table.checkable>tbody>tr{
-	color: #ffffff; background-color: #464545; text-decoration: none;
+	color: #c8c8c8; background-color: #353a41; text-decoration: none;
 }
 .js .checkable .checked td, .js .checkable .checked th{
 	background-color: #49515a;
 }
 th a{
-	color: #ffffff !important;  text-decoration: none;
+	color: #c8c8c8 !important;  text-decoration: none;
 }
 th a:hover{
-	color: #ffffff !important;  text-decoration: underline;
+	color: #c8c8c8 !important;  text-decoration: underline;
 }
 td a{
-	color: #ffffff !important;  text-decoration: none;
+	color: #c8c8c8 !important;  text-decoration: none;
 }
 td a:hover{
-	color: #ffffff !important;  text-decoration: underline;
+	color: #c8c8c8 !important;  text-decoration: underline;
 }
 tbody tr:hover td,
 tbody tr:hover th{
-	color: #ffffff !important; background-color: #49515a !important;
+	color: #c8c8c8 !important; background-color: #49515a !important;
 }
 .odd td, .odd th{
 	color: #c8c8bd ; background-color: #2e3338;
 }
 .odd td:hover,.odd th:hover{
-	color: #ffffff !important; background-color: rgba(0, 0, 0, 0.5) ;
+	color: #c8c8c8 !important; background-color: #49515a ;
 }
 #help{
-	color: #ffffff; background-color: #000000; 
+	color: #c8c8c8; background-color: #2e3338; 
 }
 /* устроняю шераховатости */
 legend a{
-	color: #ffffff;  text-decoration: none;
+	color: #c8c8c8;  text-decoration: none;
 }
 legend a:hover{
-	color: #ffffff !important;  text-decoration: underline;
+	color: #c8c8c8 !important;  text-decoration: underline;
 }
 code,textarea{
 	background-color: #464545;	
 }
-/*
-table td:first-child
-{
-	background-color: #464545 ;
-}
-table th:first-child{
-	background-color: #464545 ;
-}
-table.checkable>thead>th{
-	background-color: #464545;
-}
-*/
+
 a{
-	color: #ffffff !important;  text-decoration: none !important;
+	color: #c8c8c8 !important;  text-decoration: none !important;
 }
 a:hover{
-	color: #ffffff !important;  text-decoration: underline !important;
-}
-/*
-textarea{
-	color: #ffffff; background-color: #464545;
+	color: #c8c8c8 !important;  text-decoration: underline !important;
 }
 
-table.checkable>tbody>tr{
-	color: rgba(0, 0, 0, 0.3)!important;  background-color: #272b30 !important;
-}
-table.checkable>tbody>tr:hover{
-	color: #ff00ff !important;  background-color: #272b30 !important;
-}
-*/
 .icon{
-background-color: transparent;
+	background-color: transparent;
 }
 .icon:hover{
-background-color: transparent;
+	background-color: transparent;
 }
 .icon:active{
-background-color: transparent;
+	background-color: transparent;
 }
 input.icon{
-	
+	color: #c8c8c8;
+}
+/* поле внизу помощь старница и д.р.*/
+.pages{
+	color: #c8c8c8;	background-color: #1c1e22;
+}
+/* помощь в таблице */
+.js .column{
+        color: #fff;	background-color: #3e444c;
 }
