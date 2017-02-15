@@ -9,8 +9,6 @@ style bootstrap of theam Slate
 
 #dbs span, th a[href*="&db="]:not([href*="&select="]):not([href*="&table="]) {background:transparent; &:extend(.fa-database); padding-left:22px;}
 
-
-
 .links a {margin-right:8px;}
 
 a[href$="&sql="] {background:transparent;padding-left:22px;}
