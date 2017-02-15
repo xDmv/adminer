@@ -266,7 +266,7 @@ legend a:hover{
 	color: #c8c8c8 !important;  text-decoration: underline;
 }
 code,textarea{
-	color: #c8c8c8; background-color: transparent; 
+	color: #c8c8c8 !important; background-color: transparent; 
 }
 
 a{
