@@ -1,5 +1,6 @@
 /*
-Theme by Daemon - February 2017, ver 0.0.1
+Theme by Dmitriy Makushin - February 2017, ver 0.0.2
+style bootstrap of theam Slate
 */
 @import (reference) url(font-awesome.css) ;
 
@@ -27,7 +28,7 @@ a[href$="&import="] {background:transparent;padding-left:22px;}
   #menu .links a:hover {color:#c8c8c8; text-decoration: underline;}
 }
 
-#menu p a[href*="&select="] {background:transparent;background-color: #3e444c; clear:left; display:block; float:left; height:16px; margin-right:8px; padding-top:1px; overflow:hidden; padding-left:16px; width:0; text-decoration:none;}
+#menu p a[href*="&select="] { background-color: #3e444c; clear:left; display:block; float:left; height:16px; margin-right:8px; padding-top:1px; overflow:hidden; padding-left:16px; width:0; text-decoration:none;}
 
 #menu p a[href*="&table="], #menu p a[href*="&view="] {clear:right; margin-left:24px; display:block; height:17px; padding-bottom:1px; text-decoration:none;}
 
@@ -88,10 +89,10 @@ input{
 }
 /*меню слева, имена таблиц*/
 p#tables{
-	color: #c8c8c8; background-color: #2e3338; text-decoration: none;
+	color: #c8c8c8; background-color: #32383e; text-decoration: none;
 }
 p#tables a{
-	color: #c8c8c8; background-color: #2e3338; 
+	color: #c8c8c8; background-color: #32383e; ;
 }
 p#tables a:hover{
 	color: #c8c8c8; background-color: #3e444c; text-decoration: underline; padding-left: 1px; padding-right: 5px;
@@ -214,16 +215,16 @@ input:active:hover
 }
 /*таблицы*/
 table, thead, tr, th, td{
-	color: #c8c8c8; background-color: #353a41 ; text-decoration: none;	
+	color: #c8c8c8; background-color: #353a41 ; text-decoration: none;	border: 1px solid rgba(0, 0, 0, 0.3);
 }
 thead td, thead th{
-	background-color: #1c1e22; /* фон титула таблицы*/
+	background-color: #2e3338; /* фон титула таблицы*/
 }
 table>tr.wrap>td{
-	background-color: #1c1e22; /* фон титула таблицы*/
+	background-color: #2e3338; /* фон титула таблицы*/
 }
 table>thead>tr.wrap>th{
-	background-color: #1c1e22; /* фон титула таблицы*/
+	background-color: #2e3338; /* фон титула таблицы*/
 }
 
 table.checkable>tbody>tr{
