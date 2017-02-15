@@ -166,7 +166,7 @@ input{
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
-  text-align: center;
+  text-align: left;
   vertical-align: middle;
   -ms-touch-action: manipulation;
       touch-action: manipulation;
@@ -223,6 +223,10 @@ thead td, thead th{
 table>tr.wrap>td{
 	background-color: #1c1e22; /* фон титула таблицы*/
 }
+table>thead>tr.wrap>th{
+	background-color: #1c1e22; /* фон титула таблицы*/
+}
+
 table.checkable>tbody>tr{
 	color: #ffffff; background-color: #464545; text-decoration: none;
 }
@@ -251,6 +255,9 @@ tbody tr:hover th{
 .odd td:hover,.odd th:hover{
 	color: #ffffff !important; background-color: rgba(0, 0, 0, 0.5) ;
 }
+#help{
+	color: #ffffff; background-color: #000000; 
+}
 /* устроняю шераховатости */
 legend a{
 	color: #ffffff;  text-decoration: none;
@@ -258,7 +265,7 @@ legend a{
 legend a:hover{
 	color: #ffffff !important;  text-decoration: underline;
 }
-code,table th:first-child,textarea{
+code,textarea{
 	background-color: #464545;	
 }
 /*
@@ -299,4 +306,7 @@ background-color: transparent;
 }
 .icon:active{
 background-color: transparent;
+}
+input.icon{
+	
 }
