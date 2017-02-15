@@ -3,8 +3,8 @@ Theme by Daemon - February 2017, ver 0.0.1
 */
 @import (reference) url(font-awesome.css) ;
 
-.error {background-color:#464545 ;  padding-left:38px;}
-.message, #menu p.message {background-color:#464545 ; padding-left:38px;}
+.error {background-color:#32383e;  padding-left:38px;}
+.message, #menu p.message {background-color:#32383e; padding-left:38px;}
 
 #dbs span, th a[href*="&db="]:not([href*="&select="]):not([href*="&table="]) {background:transparent; &:extend(.fa-database); padding-left:22px;}
 
@@ -27,7 +27,7 @@ a[href$="&import="] {background:transparent;padding-left:22px;}
   #menu .links a:hover {color:#c8c8c8; text-decoration: underline;}
 }
 
-#menu p a[href*="&select="] {background:transparent;background-color: #464545; clear:left; display:block; float:left; height:16px; margin-right:8px; padding-top:1px; overflow:hidden; padding-left:16px; width:0; text-decoration:none;}
+#menu p a[href*="&select="] {background:transparent;background-color: #3e444c; clear:left; display:block; float:left; height:16px; margin-right:8px; padding-top:1px; overflow:hidden; padding-left:16px; width:0; text-decoration:none;}
 
 #menu p a[href*="&table="], #menu p a[href*="&view="] {clear:right; margin-left:24px; display:block; height:17px; padding-bottom:1px; text-decoration:none;}
 
@@ -36,12 +36,7 @@ a[href$="&import="] {background:transparent;padding-left:22px;}
 .links a[href*="&create="] {color: #c8c8c8; background-color: #272b30; padding-left:22px;}
 .links a[href$="&create="] {color: #c8c8c8; background-color: #272b30; padding-left:22px;}
 
-#content p a[href*="&create="] {background:transparent; padding-left:22px;}
-#content p a[href*="&select="] {background:transparent; padding-left:22px;}
-#content p a[href*="&page="] {background-image:none; padding-left:0;}
-#content p a[href$="&database="] {background:transparent; padding-left:22px;}
-#content p a[href*="&edit="] {background:transparent; padding-left:22px;}
-#content p a[href*="&table="] {background:transparent; padding-left:22px;}
+
 th a[href*="&table="]  { background:transparent; padding-left:22px;}
 
 .links #content a[href*="&database="] {color: #c8c8c8;text-decoration: none;  background-color: #272b30; padding-left:22px;}
@@ -80,7 +75,7 @@ h1,h2,p{
   background-color: #272b30;	
 }
 div p{
-	color: #c8c8c8; background-color: #272b30; text-decoration: underline;
+	color: #c8c8c8; background-color: #272b30; 
 }
 .links a{
 	color: #c8c8c8; background-color: #272b30; text-decoration: none;
@@ -89,7 +84,7 @@ div p{
 	color: #c8c8c8; text-decoration: underline;
 }
 input{
-	color: #c8c8c8; background-color: #464545;
+	color: #c8c8c8; background-color: #3e444c;
 }
 /*меню слева, имена таблиц*/
 p#tables{
@@ -115,7 +110,11 @@ p#breadcrumb a:hover{
 /* выпадающий список*/
 select,option {
   color: #c8c8c8;
-  background-color: #464545;	
+  background-color: #3a3f44;	
+}
+option>select:hover {
+  color: #c8c8c8;
+  background-color: #3e444c;	
 }
 option:hover{
 	color: #c8c8c8;
@@ -128,7 +127,7 @@ div p{
 }
 
 .sqlarea{
-	background-color: #464545;
+	background-color: transparent;
 }
 
 span.jush-sql_code{
@@ -266,7 +265,7 @@ legend a:hover{
 	color: #c8c8c8 !important;  text-decoration: underline;
 }
 code,textarea{
-	background-color: #464545;	
+	background-color: transparent; border: 1px inset #0c0d0e;
 }
 
 a{
@@ -280,7 +279,7 @@ a:hover{
 	background-color: transparent;
 }
 .icon:hover{
-	background-color: transparent;
+	background-color: red;
 }
 .icon:active{
 	background-color: transparent;
@@ -295,4 +294,7 @@ input.icon{
 /* помощь в таблице */
 .js .column{
         color: #fff;	background-color: #3e444c;
+}
+#logins a{
+	background-color: transparent;
 }
