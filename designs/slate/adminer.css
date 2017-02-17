@@ -2,14 +2,13 @@
 Theme by Dmitriy Makushin - February 2017, ver 0.0.2
 style bootstrap of theam Slate
 */
-@import (reference) url(font-awesome.css) ;
+
+/* @import (font-awesome.css); */
 
 .error {background-color:#32383e;  padding-left:38px;}
 .message, #menu p.message {background-color:#32383e; padding-left:38px;}
 
-#dbs span, th a[href*="&db="]:not([href*="&select="]):not([href*="&table="]) {background:transparent; &:extend(.fa-database); padding-left:22px;}
-
-
+#dbs span, th a[href*="&db="]:not([href*="&select="]):not([href*="&table="]) {background:transparent; padding-left:22px;}
 
 .links a {margin-right:8px;}
 
@@ -162,7 +161,7 @@ span.jush-num{
 input{
 	color: #c8c8c8;
 	background-color: #3a3f44;
-	border-color: #3a3f44;
+
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -171,8 +170,7 @@ input{
   -ms-touch-action: manipulation;
       touch-action: manipulation;
   cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
+  border: 1px solid #3e444c;
   white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -266,7 +264,7 @@ legend a:hover{
 	color: #c8c8c8 !important;  text-decoration: underline;
 }
 code,textarea{
-	background-color: transparent; border: 1px inset #0c0d0e;
+	color: #c8c8c8 !important; background-color: transparent; 
 }
 
 a{
