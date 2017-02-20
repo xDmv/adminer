@@ -2,3 +2,12 @@
 /adminer*.php
 /editor*.php
 /vendor/
+/IntelliLang.xml
+/colors.scheme.xml
+/databaseDrivers.xml
+/databaseSettings.xml
+/debugger.xml
+/diff.xml
+/ide.general.xml
+/project.default.xml
+/web-browsers.xml
