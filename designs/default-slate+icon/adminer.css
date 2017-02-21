@@ -1,0 +1,309 @@
+/** @author Ondrej Valka, http://valka.info */
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+body { color: #c8c8c8; background: #272b30; font: 90%/1.25 Verdana, Arial, Helvetica, sans-serif; margin: 0; }
+a { color: #c8c8c8; text-decoration: none; }
+a:visited { color: #c8c8c8; }
+a:link:hover, a:visited:hover { color: #c8c8c8; text-decoration: underline; }
+a.text:hover { color: #c8c8c8; text-decoration: none; }
+a.jush-help:hover { color: #c8c8c8; }
+h1 { font-size: 150%; margin: 0; padding: .8em 1em; border-bottom: 1px solid #999; font-weight: normal; color: #c8c8c8; background: #272b30; }
+h2 { font-size: 150%; margin: 0 0 20px -18px; padding: .8em 1em; border-bottom: 1px solid #000; color: #c8c8c8; font-weight: normal; background: #272b30; }
+h3 { font-weight: normal; font-size: 130%; margin: 1em 0 0; }
+form { margin: 0; }
+td table { width: 100%; margin: 0; }
+table { margin: 1em 20px 0 0; border: 0; border-top: 1px solid rgba(0, 0, 0, 0.3); border-left: 1px solid rgba(0, 0, 0, 0.3); font-size: 90%; }
+td, th { border: 0; border-right: 1px solid rgba(0, 0, 0, 0.3); border-bottom: 1px solid rgba(0, 0, 0, 0.3); padding: .2em .3em; }
+th { background: #353a41; text-align: left; }
+thead th { text-align: center; padding: .2em .5em; }
+thead td, thead th { background: #2e3338; }
+fieldset { display: inline; vertical-align: top; padding: .5em .8em; margin: .8em .5em 0 0; border: 1px solid #999; }
+p { margin: .8em 20px 0 0; }
+img { vertical-align: middle; border: 0; }
+td img { max-width: 200px; max-height: 200px; }
+code { background: transparent; color: #c8c8c8 }
+tbody tr:hover td, tbody tr:hover th { background: #49515a; }
+pre { margin: 1em 0 0; }
+pre, textarea { font: 100%/1.25 monospace; }
+input[type=image] { vertical-align: middle; }
+input.default { box-shadow: 1px 1px 1px #777; }
+input.required { box-shadow: 1px 1px 1px red; }
+input.maxlength { box-shadow: 1px 1px 1px red; }
+input.wayoff { left: -1000px; position: absolute; }
+.block { display: block; }
+.version { color: #c8c8c8; font-size: 67%; }
+.js .hidden, .nojs .jsonly { display: none; }
+.js .column { position: absolute; color: #fff; background-color: #3e444c; padding: .27em 1ex .3em 0; margin-top: -.27em; }
+.nowrap td, .nowrap th, td.nowrap { white-space: pre; }
+.wrap td { white-space: normal; }
+.error { color: #ee5f59; background-color:#32383e; }
+.error b { background-color:#32383e; font-weight: normal; }
+.message { color: green; background-color:#32383e; }
+.error, .message { padding: .5em .8em; margin: 1em 20px 0 0; }
+.char { color: #c8c8c8; }
+.date { color: #c8c8c8; }
+.enum { color: #c8c8c8; }
+.binary { color: #ee5f59; }
+.odd td { color: #c8c8bd ; background-color: #2e3338; }
+.js .checkable .checked td, .js .checkable .checked th { background-color: #49515a; }
+.time { color: silver; font-size: 70%; }
+.function { text-align: right; }
+.number { text-align: right; }
+.datetime { text-align: right; }
+.type { width: 15ex; width: auto\9; }
+.options select { width: 20ex; width: auto\9; }
+.view { font-style: italic; }
+.active { font-weight: bold; }
+.sqlarea { width: 98%; background-color: transparent;}
+.icon { width: 18px; height: 18px; background-color: navy; }
+.icon:hover { background-color: red; }
+.size { width: 6ex; }
+.help { cursor: help; }
+.pages { position: fixed; bottom: 0; left: 21em; padding: 5px; border: 1px solid #999; color: #c8c8c8;background-color: #1c1e22;}
+.links a { white-space: nowrap; margin-right: 20px; }
+.logout { margin-top: .5em; position: absolute; top: 0; right: 0; }
+.loadmore { margin-left: 1ex; }
+#menu { position: absolute; margin: 10px 0 0; padding: 0 0 30px 0; top: 2em; left: 0; width: 19em; }
+#menu p { padding: .8em 1em; margin: 0; border-bottom: 1px solid #ccc; }
+#dbs { overflow: hidden; }
+#logins, #tables { white-space: nowrap; overflow: auto; }
+#logins a, #tables a, #tables span { background: #272b30; }
+#content { margin: 2em 0 0 21em; padding: 10px 20px 20px 0; }
+#lang { position: absolute; top: 0; left: 0; line-height: 1.8em; padding: .3em 1em; }
+#breadcrumb { white-space: nowrap; position: absolute; top: 0; left: 21em; background: #272b30; height: 2em; line-height: 1.8em; padding: 0 1em; margin: 0 0 0 -18px; }
+#h1 { color: c8c8c8; text-decoration: none; font-style: italic; }
+#version { font-size: 67%; color: #ee5f59; }
+#schema { margin-left: 60px; position: relative; -moz-user-select: none; -webkit-user-select: none; }
+#schema .table { border: 1px solid silver; padding: 0 2px; cursor: move; position: absolute; }
+#schema .references { position: absolute; }
+#help { position: absolute; border: 1px solid #999; background: #2e3338; padding: 5px; font-family: monospace; z-index: 1; }
+
+.rtl h2 { margin: 0 -18px 20px 0; }
+.rtl p, .rtl table, .rtl .error, .rtl .message { margin: 1em 0 0 20px; }
+.rtl .logout { left: 0; right: auto; }
+.rtl #content { margin: 2em 21em 0 0; padding: 10px 0 20px 20px; }
+.rtl #breadcrumb { left: auto; right: 21em; margin: 0 -18px 0 0; }
+.rtl .pages { left: auto; right: 21em; }
+.rtl input.wayoff { left: auto; right: -1000px; }
+.rtl #lang, .rtl #menu { left: auto; right: 0; }
+
+
+/*поле ввода SQL-запроса */
+div p{
+	text-decoration: none;
+}
+
+.sqlarea{
+	background-color: transparent;
+}
+
+span.jush-sql_code{
+	color: #c8c8c8; text-decoration: none;
+}
+.jush a{
+	color: #c8c8c8;  text-decoration: none;
+}
+.jush a:hover{
+	color: #c8c8c8;  text-decoration: underline;
+}
+
+span.jush-num{
+	color: #5ebf4f; /*цвет цифр */
+}
+.jush-php_quo, 
+.jush-quo, 
+.jush-quo_one, 
+.jush-php_eot, 
+.jush-apo, 
+.jush-sql_apo, 
+.jush-sqlite_apo, 
+.jush-sql_quo, 
+.jush-sql_eot{
+	color: #5bb6ad; /* цвет текста в ковычках*/
+}
+.jush-bac, .jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo{
+	color: #c8c8c8;
+}
+@media all and (max-device-width: 880px) {
+	.pages { left: auto; }
+	#menu { position: static; width: auto; }
+	#content { margin-left: 10px; }
+	#lang { position: static; border-top: 1px solid #999; }
+	#breadcrumb { left: auto; }
+	.rtl .pages { right: auto; }
+	.rtl #content { margin-right: 10px; }
+	.rtl #breadcrumb { right: auto; }
+}
+
+@media print {
+	#lang, #menu { display: none; }
+	#content { margin-left: 1em; }
+	#breadcrumb { left: 1em; }
+	.nowrap td, .nowrap th, td.nowrap { white-space: normal; }
+}
+
+select,option {
+  color: #c8c8c8;
+  background-color: #3a3f44;	
+}
+option>select:hover {
+  color: #c8c8c8;
+  background-color: #3e444c;	
+}
+option:hover{
+	color: #c8c8c8;
+	text-decoration: underline;
+}
+input{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	color: #c8c8c8;
+	background-color: #3a3f44;
+
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: left;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  border: 1px solid #3e444c;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;	
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+
+}
+input:focus
+{
+  color: #c8c8c8;
+  background-color: #232628;
+  border-color: #000000;
+  text-decoration: none;
+}
+input:hover {
+  color: #c8c8c8;
+  background-color: #232628;
+  border-color: #1e2023;
+}
+input:active
+{
+  outline: 0;
+  color: #c8c8c8;
+  background-color: #232628;
+  border-color: #1e2023;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+input:active:hover
+ {
+  color: #c8c8c8;
+  background-color: #121415;
+  border-color: #000000;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+/*меню слева, имена таблиц*/
+p#tables{
+	color: #c8c8c8; background-color: #32383e; text-decoration: none;
+}
+p#tables a{
+	color: #c8c8c8; background-color: #32383e; ;
+}
+p#tables a:hover{
+	color: #c8c8c8; background-color: #3e444c; text-decoration: underline; padding-left: 1px; padding-right: 5px;
+}
+code,textarea{
+	color: #c8c8c8 !important; background-color: transparent; 
+}
+input[name="delete"], input[name="drop"] {color: #c8c8c8; padding:1px 5px 1px 18px; border:0; cursor:pointer; font-size:.9em;}
+input[name="delete"]:hover, input[name="drop"]:hover {color:#ee5f59; }
+
+input[name="logout"] {color: #c8c8c8; padding:1px 5px 1px 5px; border:0; cursor:pointer; font-size:.9em;}
+input[name="logout"]:hover {color:#ee5f59;}
+input[name="logout"]:before{	
+
+	content: "\f08b";
+	padding-left:12px;
+}
+.error:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;	
+	content: "\f071";
+}
+.message:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	padding-left:12px;	
+	content: "\f05a";
+	
+}
+#dbs span, th a[href*="&db="]:not([href*="&select="]):not([href*="&table="]):before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f1c0";
+	padding-left:5px;
+}
+a[href$="&sql="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f1c0";
+		
+}
+a[href*="&dump="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f1c1";
+		
+}
+a[href$="&dump="] :before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f1c0";
+		
+}
+a[href*="&import="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f0ee";
+		
+}
+a[href$="&import="] :before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f0ee";
+		
+}
