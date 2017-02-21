@@ -3,10 +3,26 @@ Theme by Dmitriy Makushin - February 2017, ver 0.0.2
 style bootstrap of theam Slate
 */
 
-/* @import (font-awesome.css); */
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
 .error {background-color:#32383e;  padding-left:38px;}
+.error:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;	
+	content: "\f071";
+}
 .message, #menu p.message {background-color:#32383e; padding-left:38px;}
+.message:before, #menu p.message:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;	
+	content: "\f1c0";
+}
 
 #dbs span, th a[href*="&db="]:not([href*="&select="]):not([href*="&table="]) {background:transparent; padding-left:22px;}
 
