@@ -38,7 +38,7 @@ input.wayoff { left: -1000px; position: absolute; }
 .wrap td { white-space: normal; }
 .error { color: #ee5f59; background-color:#32383e; }
 .error b { background-color:#32383e; font-weight: normal; }
-.message { color: green; background-color:#32383e; }
+.message { color: #009f00; background-color:#32383e; }
 .error, .message { padding: .5em .8em; margin: 1em 20px 0 0; }
 .char { color: #c8c8c8; }
 .date { color: #c8c8c8; }
@@ -160,6 +160,7 @@ input{
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
+	content: "\f005";
 	color: #c8c8c8;
 	background-color: #3a3f44;
 
@@ -230,11 +231,7 @@ input[name="delete"]:hover, input[name="drop"]:hover {color:#ee5f59; }
 
 input[name="logout"] {color: #c8c8c8; padding:1px 5px 1px 5px; border:0; cursor:pointer; font-size:.9em;}
 input[name="logout"]:hover {color:#ee5f59;}
-input[name="logout"]:before{	
 
-	content: "\f08b";
-	padding-left:12px;
-}
 .error:before{
 	font-family: FontAwesome;
 	font-weight: normal;
@@ -277,7 +274,7 @@ a[href*="&dump="]:before{
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
-	content: "\f1c1";
+	content: "\f0ee";
 		
 }
 a[href$="&dump="] :before{
@@ -295,7 +292,7 @@ a[href*="&import="]:before{
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
-	content: "\f0ee";
+	content: "\f0ed";
 		
 }
 a[href$="&import="] :before{
@@ -305,5 +302,89 @@ a[href$="&import="] :before{
 	display: inline-block;
 	text-decoration: inherit;
 	content: "\f0ee";
-		
+}
+.links a[href*="&create="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f040";
+}
+span[title="database"]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f1c0";
+}
+#content p a[href*="&privileges="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f2bb";
+}
+#menu p a[href*="&select="]{
+	/* clear:left;*/
+	display:block;
+	float:left;
+	height:16px;
+	margin-right:14px;
+	padding-top:1px;
+	/*overflow:hidden;
+	padding-left:16px;*/
+	width:0;
+	text-decoration:none;
+}
+
+#menu p a[href*="&select="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f0ce";
+}
+#content p a[href*="&schema="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f0e8";
+}
+#content p a[href$="&database="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f1c0";
+}
+th a[href*="&table="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f0ce";
+}
+#content p a[href*="&edit="]:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f055";
+}
+p.logout:before{
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	content: "\f08b";
 }
