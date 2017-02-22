@@ -92,11 +92,9 @@ input.wayoff { left: -1000px; position: absolute; }
 div p{
 	text-decoration: none;
 }
-
 .sqlarea{
 	background-color: transparent;
 }
-
 span.jush-sql_code{
 	color: #c8c8c8; text-decoration: none;
 }
@@ -231,8 +229,8 @@ input[name="logout"]:hover {color:#ee5f59;}
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;	
-	content: "\f071";
-	margin-right: 3px;
+	content: "\f06a";
+	margin-right: 4px;
 }
 .message:before{
 	font-family: FontAwesome;
