@@ -212,7 +212,7 @@ p#tables a{
 	color: #c8c8c8; background-color: #32383e; margin-left: 3px;
 }
 p#tables a:hover{
-	color: #c8c8c8; background-color: #3e444c; text-decoration: underline; padding-left: 1px; padding-right: 5px;
+	color: #c8c8c8; background-color: #3e444c; text-decoration: underline;  
 }
 code,textarea{
 	color: #c8c8c8 !important; background-color: transparent; 
@@ -326,7 +326,6 @@ a[href$="&import="] :before{
 	/*overflow:hidden;
 	padding-left:16px;*/
 	width:0;
-	text-decoration:none;
 	color:#32383e;
 }
 
@@ -336,6 +335,7 @@ a[href$="&import="] :before{
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
+	
 	content: "\f0ce";
 	margin-right: 15px;
 	color:#c8c8c8;
@@ -383,5 +383,4 @@ p.logout:before{
 	display: inline-block;
 	text-decoration: inherit;
 	content: "\f08b";
-	margin-right: 3px;
 }
