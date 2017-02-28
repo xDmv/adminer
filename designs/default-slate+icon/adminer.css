@@ -1,5 +1,7 @@
-/** @author Ondrej Valka, http://valka.info */
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+/** @author Makushin Dmitriy and Yuri Vysotskiy */ 
+
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" all; 
+@import "/font-awesome.css" all;
 
 body { color: #c8c8c8; background: #272b30; font: 90%/1.25 Verdana, Arial, Helvetica, sans-serif; margin: 0; }
 a { color: #c8c8c8; text-decoration: none; }
@@ -87,41 +89,6 @@ input.wayoff { left: -1000px; position: absolute; }
 .rtl input.wayoff { left: auto; right: -1000px; }
 .rtl #lang, .rtl #menu { left: auto; right: 0; }
 
-
-/*поле ввода SQL-запроса */
-div p{
-	text-decoration: none;
-}
-.sqlarea{
-	background-color: transparent;
-}
-span.jush-sql_code{
-	color: #c8c8c8; text-decoration: none;
-}
-.jush a{
-	color: #c8c8c8;  text-decoration: none;
-}
-.jush a:hover{
-	color: #c8c8c8;  text-decoration: underline;
-}
-
-span.jush-num{
-	color: #5ebf4f; /*цвет цифр */
-}
-.jush-php_quo, 
-.jush-quo, 
-.jush-quo_one, 
-.jush-php_eot, 
-.jush-apo, 
-.jush-sql_apo, 
-.jush-sqlite_apo, 
-.jush-sql_quo, 
-.jush-sql_eot{
-	color: #5bb6ad; /* цвет текста в ковычках*/
-}
-.jush-bac, .jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo{
-	color: #c8c8c8;
-}
 @media all and (max-device-width: 880px) {
 	.pages { left: auto; }
 	#menu { position: static; width: auto; }
@@ -139,7 +106,45 @@ span.jush-num{
 	#breadcrumb { left: 1em; }
 	.nowrap td, .nowrap th, td.nowrap { white-space: normal; }
 }
+/*поле ввода SQL-запроса */
+div p{
+	text-decoration: none;
+}
+.sqlarea{
+	background-color: transparent;
+}
+span.jush-sql_code{
+	color: #c8c8c8 !important; text-decoration: none;
+}
+.jush a, .jush-sql a, .jush-sql_code a{
+	color: #c8c8c8;  text-decoration: none;
+}
+.jush a:hover{
+	color: #c8c8c8;  text-decoration: underline;
+}
 
+span.jush-num{
+	color: #5ebf4f; /*цвет цифр */
+}
+.jush-php_quo, 
+.jush-quo, 
+.jush-quo_one, 
+.jush-php_eot, 
+.jush-apo, 
+.jush-sql_apo, 
+.jush-sqlite_apo, 
+.jush-sql_quo, 
+.jush-sql_eot,
+.jush-bac,
+a.jush-custom:link{
+	color: #5bb6ad; /* цвет текста в ковычках*/
+}
+a.jush-custom:hover{
+	color: #5bb6ad !important;
+}
+.jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo{
+	color: #c8c8c8;
+}
 select,option {
 	color: #c8c8c8;
 	background-color: #3a3f44;
@@ -238,7 +243,7 @@ input[name="logout"]:hover {color:#ee5f59;}
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
-	padding-left:12px;	
+	padding-left:5px;	
 	content: "\f05a";
 	margin-right: 3px;
 }
@@ -323,23 +328,33 @@ a[href$="&import="] :before{
 	height:16px;
 	margin-right:14px;
 	padding-top:1px;
-	/*overflow:hidden;
+	/* overflow:hidden;
 	padding-left:16px;*/
 	width:0;
 	color:#32383e;
+	text-decoration: none;
 }
+#menu p a[href*="&select="]:hover{
+	color:#c8c8c8;
+	height: 16px;
+	margin-right: 5px;
+	width: 13px;
+	text-decoration: underline;
+	background-color: #3e444c;
 
+}
 #menu p a[href*="&select="]:before{
 	font-family: FontAwesome;
 	font-weight: normal;
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
-	
 	content: "\f0ce";
 	margin-right: 15px;
 	color:#c8c8c8;
+	
 }
+
 #content p a[href*="&schema="]:before{
 	font-family: FontAwesome;
 	font-weight: normal;
