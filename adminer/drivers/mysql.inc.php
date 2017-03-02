@@ -807,7 +807,7 @@ if (!defined("DRIVER")) {
 	*/
 	function routine($name, $type) {
 		global $connection, $enum_length, $inout, $types;
-		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar");
+		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar", "json");
 		$type_pattern = "((" . implode("|", array_merge(array_keys($types), $aliases)) . ")\\b(?:\\s*\\(((?:[^'\")]|$enum_length)++)\\))?\\s*(zerofill\\s*)?(unsigned(?:\\s+zerofill)?)?)(?:\\s*(?:CHARSET|CHARACTER\\s+SET)\\s*['\"]?([^'\"\\s,]+)['\"]?)?";
 		$pattern = "\\s*(" . ($type == "FUNCTION" ? "" : $inout) . ")?\\s*(?:`((?:[^`]|``)*)`\\s*|\\b(\\S+)\\s+)$type_pattern";
 		$create = $connection->result("SHOW CREATE $type " . idf_escape($name), 2);
@@ -1030,7 +1030,7 @@ if (!defined("DRIVER")) {
 	foreach (array(
 		lang('Numbers') => array("tinyint" => 3, "smallint" => 5, "mediumint" => 8, "int" => 10, "bigint" => 20, "decimal" => 66, "float" => 12, "double" => 21),
 		lang('Date and time') => array("date" => 10, "datetime" => 19, "timestamp" => 19, "time" => 10, "year" => 4),
-		lang('Strings') => array("char" => 255, "varchar" => 65535, "tinytext" => 255, "text" => 65535, "mediumtext" => 16777215, "longtext" => 4294967295),
+		lang('Strings') => array("char" => 255, "varchar" => 65535, "tinytext" => 255, "text" => 65535, "mediumtext" => 16777215, "longtext" => 4294967295, "json" => 4294967295),
 		lang('Lists') => array("enum" => 65535, "set" => 64),
 		lang('Binary') => array("bit" => 20, "binary" => 255, "varbinary" => 65535, "tinyblob" => 255, "blob" => 65535, "mediumblob" => 16777215, "longblob" => 4294967295),
 		lang('Geometry') => array("geometry" => 0, "point" => 0, "linestring" => 0, "polygon" => 0, "multipoint" => 0, "multilinestring" => 0, "multipolygon" => 0, "geometrycollection" => 0),
@@ -1051,7 +1051,7 @@ if (!defined("DRIVER")) {
 			"(^|[^o])int|float|double|decimal" => "+/-", // not point
 			"date" => "+ interval/- interval",
 			"time" => "addtime/subtime",
-			"char|text" => "concat",
+			"char|text|json" => "concat",
 		)
 	);
 }
