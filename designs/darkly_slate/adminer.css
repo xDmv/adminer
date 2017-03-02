@@ -1,7 +1,7 @@
 /** @author Makushin Dmitriy and Yuri Vysotskiy */ 
 
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" all; 
-@import "/font-awesome.css" all;
+/* @import "/font-awesome.css" all; */
 
 body { color: #c8c8c8; background: #272b30; font: 90%/1.25 Verdana, Arial, Helvetica, sans-serif; margin: 0; }
 a { color: #c8c8c8; text-decoration: none; }
@@ -326,18 +326,17 @@ a[href$="&import="] :before{
 	display:block;
 	float:left;
 	height:16px;
-	margin-right:4px;
-	padding-top:1px;
+	margin-right: 10px;
 	/* overflow:hidden;
 	padding-left:16px;*/
-	width:0;
+	width: 5px;
 	color:#32383e;
 	text-decoration: none;
 }
 #menu p a[href*="&select="]:hover:before{
 	text-decoration: underline;
 	background-color: #3e444c;
-
+	border: d 1px #222222;
 }
 #menu p a[href*="&select="]:before{
 	font-family: FontAwesome;
@@ -424,6 +423,7 @@ p.logout:before{
 .jush-sql a, .jush-sql_code a, .jush-sqlite a, .jush-pgsql a, .jush-mssql a, .jush-oracle a, .jush-simpledb a { font-weight: bold; }
 .jush-php_sql .jush-php_quo a, .jush-php_sql .jush-php_apo a { font-weight: normal; }
 .jush-tag a, .jush-att a, .jush-apo a, .jush-quo a, .jush-php_apo a, .jush-php_quo a, .jush-php_eot2 a { color: inherit; color: expression(parentNode.currentStyle.color); }
-a.jush-custom:visited { font-weight: normal; color: #c8c8c8; }
+a.jush-custom:link, a.jush-custom:visited { font-weight: normal; color: #5bb6ad; }
+
 
 .jush p { margin: 0; }
