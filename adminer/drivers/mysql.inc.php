@@ -482,6 +482,7 @@ if (!defined("DRIVER")) {
 				"default" => ($row["Default"] != "" || preg_match("~char|set~", $match[1]) ? $row["Default"] : null),
 				"null" => ($row["Null"] == "YES"),
 				"auto_increment" => ($row["Extra"] == "auto_increment"),
+                "is_virtual" => (strpos(strtolower($row["Extra"]), "virtual") !== false),
 				"on_update" => (preg_match('~^on update (.+)~i', $row["Extra"], $match) ? $match[1] : ""), //! available since MySQL 5.1.23
 				"collation" => $row["Collation"],
 				"privileges" => array_flip(preg_split('~, *~', $row["Privileges"])),
@@ -807,7 +808,7 @@ if (!defined("DRIVER")) {
 	*/
 	function routine($name, $type) {
 		global $connection, $enum_length, $inout, $types;
-		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar", "json");
+		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar", "json" , "GENERATION_EXPRESSION");
 		$type_pattern = "((" . implode("|", array_merge(array_keys($types), $aliases)) . ")\\b(?:\\s*\\(((?:[^'\")]|$enum_length)++)\\))?\\s*(zerofill\\s*)?(unsigned(?:\\s+zerofill)?)?)(?:\\s*(?:CHARSET|CHARACTER\\s+SET)\\s*['\"]?([^'\"\\s,]+)['\"]?)?";
 		$pattern = "\\s*(" . ($type == "FUNCTION" ? "" : $inout) . ")?\\s*(?:`((?:[^`]|``)*)`\\s*|\\b(\\S+)\\s+)$type_pattern";
 		$create = $connection->result("SHOW CREATE $type " . idf_escape($name), 2);

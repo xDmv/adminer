@@ -1,7 +1,7 @@
 /** @author Makushin Dmitriy and Yuri Vysotskiy */ 
 
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" all; 
-@import "/font-awesome.css" all;
+/* @import "/font-awesome.css" all; */
 
 body { color: #c8c8c8; background: #272b30; font: 90%/1.25 Verdana, Arial, Helvetica, sans-serif; margin: 0; }
 a { color: #c8c8c8; text-decoration: none; }
@@ -73,7 +73,7 @@ input.wayoff { left: -1000px; position: absolute; }
 #content { margin: 2em 0 0 21em; padding: 10px 20px 20px 0; }
 #lang { position: absolute; top: 0; left: 0; line-height: 1.8em; padding: .3em 1em; }
 #breadcrumb { white-space: nowrap; position: absolute; top: 0; left: 21em; background: #272b30; height: 2em; line-height: 1.8em; padding: 0 1em; margin: 0 0 0 -18px; }
-#h1 { color: c8c8c8; text-decoration: none; font-style: italic; }
+#h1 { color: #c8c8c8; text-decoration: none; font-style: italic; }
 #version { font-size: 67%; color: #ee5f59; }
 #schema { margin-left: 60px; position: relative; -moz-user-select: none; -webkit-user-select: none; }
 #schema .table { border: 1px solid silver; padding: 0 2px; cursor: move; position: absolute; }
@@ -114,9 +114,9 @@ div p{
 	background-color: transparent;
 }
 span.jush-sql_code{
-	color: #c8c8c8; text-decoration: none;
+	color: #c8c8c8 !important; text-decoration: none;
 }
-.jush a{
+.jush a, .jush-sql a, .jush-sql_code a, .jush a.jush-help{
 	color: #c8c8c8;  text-decoration: none;
 }
 .jush a:hover{
@@ -126,28 +126,33 @@ span.jush-sql_code{
 span.jush-num{
 	color: #5ebf4f; /*цвет цифр */
 }
-.jush-php_quo, 
-.jush-quo, 
-.jush-quo_one, 
-.jush-php_eot, 
-.jush-apo, 
-.jush-sql_apo, 
-.jush-sqlite_apo, 
-.jush-sql_quo, 
-.jush-sql_eot{
+.jush-php_quo,
+.jush-quo,
+.jush-quo_one,
+.jush-php_eot,
+.jush-apo,
+.jush-sql_apo,
+.jush-sqlite_apo,
+.jush-sql_quo,
+.jush-sql_eot,
+.jush-bac,
+a.jush-custom:link{
 	color: #5bb6ad; /* цвет текста в ковычках*/
 }
-.jush-bac, .jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo{
+a.jush-custom:hover{
+	color: #5bb6ad !important;
+}
+.jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo{
 	color: #c8c8c8;
 }
 select,option {
 	color: #c8c8c8;
 	background-color: #3a3f44;
-	margin-right: 3px;  
+	margin-right: 3px;
 }
 option>select:hover {
-  color: #c8c8c8;
-  background-color: #3e444c;	
+	color: #c8c8c8;
+	background-color: #3e444c;
 }
 option:hover{
 	color: #c8c8c8;
@@ -169,7 +174,7 @@ input{
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 	padding: 1px 5px;
 	font-size: 12px;
 	line-height: 1.5;
@@ -177,32 +182,32 @@ input{
 }
 input:focus
 {
-	 color: #c8c8c8;
-	 background-color: #232628;
-	 border-color: #000000;
-	 text-decoration: none;
+	color: #c8c8c8;
+	background-color: #232628;
+	border-color: #000000;
+	text-decoration: none;
 }
 input:hover {
-  color: #c8c8c8;
-  background-color: #232628;
-  border-color: #1e2023;
+	color: #c8c8c8;
+	background-color: #232628;
+	border-color: #1e2023;
 }
 input:active
 {
-  outline: 0;
-  color: #c8c8c8;
-  background-color: #232628;
-  border-color: #1e2023;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+	outline: 0;
+	color: #c8c8c8;
+	background-color: #232628;
+	border-color: #1e2023;
+	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 input:active:hover
- {
-  color: #c8c8c8;
-  background-color: #121415;
-  border-color: #000000;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+{
+	color: #c8c8c8;
+	background-color: #121415;
+	border-color: #000000;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
 }
 /*меню слева, имена таблиц*/
 p#tables{
@@ -212,10 +217,10 @@ p#tables a{
 	color: #c8c8c8; background-color: #32383e; margin-left: 3px;
 }
 p#tables a:hover{
-	color: #c8c8c8; background-color: #3e444c; text-decoration: underline;  
+	color: #c8c8c8; background-color: #3e444c; text-decoration: underline;
 }
 code,textarea{
-	color: #c8c8c8 !important; background-color: transparent; 
+	color: #c8c8c8 !important; background-color: transparent;
 }
 input[name="delete"], input[name="drop"] {color: #c8c8c8; padding:1px 5px 1px 18px; border:0; cursor:pointer; font-size:.9em;}
 input[name="delete"]:hover, input[name="drop"]:hover {color:#ee5f59; }
@@ -228,7 +233,7 @@ input[name="logout"]:hover {color:#ee5f59;}
 	font-weight: normal;
 	font-style: normal;
 	display: inline-block;
-	text-decoration: inherit;	
+	text-decoration: inherit;
 	content: "\f06a";
 	margin-right: 4px;
 }
@@ -238,7 +243,7 @@ input[name="logout"]:hover {color:#ee5f59;}
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
-	padding-left:5px;	
+	padding-left:5px;
 	content: "\f05a";
 	margin-right: 3px;
 }
@@ -259,7 +264,7 @@ a[href$="&sql="]:before{
 	display: inline-block;
 	text-decoration: inherit;
 	content: "\f1c0";
-	margin-right: 3px;	
+	margin-right: 3px;
 }
 a[href*="&dump="]:before{
 	font-family: FontAwesome;
@@ -268,16 +273,16 @@ a[href*="&dump="]:before{
 	display: inline-block;
 	text-decoration: inherit;
 	content: "\f0ee";
-	margin-right: 3px;	
+	margin-right: 3px;
 }
-a[href$="&dump="] :before{
+a[href$="&dump="]:before{
 	font-family: FontAwesome;
 	font-weight: normal;
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
-	content: "\f1c0";
-	margin-right: 3px;	
+	content: "\f0ee";
+	margin-right: 3px;
 }
 a[href*="&import="]:before{
 	font-family: FontAwesome;
@@ -286,7 +291,7 @@ a[href*="&import="]:before{
 	display: inline-block;
 	text-decoration: inherit;
 	content: "\f0ed";
-	margin-right: 3px;	
+	margin-right: 3px;
 }
 a[href$="&import="] :before{
 	font-family: FontAwesome;
@@ -294,7 +299,7 @@ a[href$="&import="] :before{
 	font-style: normal;
 	display: inline-block;
 	text-decoration: inherit;
-	content: "\f0ee";
+	content: "\f0ed";
 	margin-right: 3px;
 }
 .links a[href*="&create="]:before{
@@ -321,25 +326,28 @@ a[href$="&import="] :before{
 	display:block;
 	float:left;
 	height:16px;
-	margin-right:14px;
-	padding-top:1px;
-	/*overflow:hidden;
+	margin-right: 10px;
+	/* overflow:hidden;
 	padding-left:16px;*/
-	width:0;
+	width: 5px;
 	color:#32383e;
+	text-decoration: none;
 }
-
+#menu p a[href*="&select="]:hover:before{
+	text-decoration: underline;
+	background-color: #3e444c;
+	border: d 1px #222222;
+}
 #menu p a[href*="&select="]:before{
 	font-family: FontAwesome;
 	font-weight: normal;
 	font-style: normal;
 	display: inline-block;
-	text-decoration: inherit;
-	
+	text-decoration: none;
 	content: "\f0ce";
-	margin-right: 15px;
 	color:#c8c8c8;
 }
+
 #content p a[href*="&schema="]:before{
 	font-family: FontAwesome;
 	font-weight: normal;
@@ -384,3 +392,37 @@ p.logout:before{
 	text-decoration: inherit;
 	content: "\f08b";
 }
+
+.jush { color: #c8c8c8; }
+.jush-htm_com, .jush-com, .jush-com_code, .jush-one, .jush-php_doc, .jush-php_com, .jush-php_one, .jush-js_one, .jush-js_doc { color: gray; }
+.jush-php, .jush-php_new, .jush-php_fun { color: #2CC990; background-color: #272b30; }
+.jush-php_quo, .jush-quo, .jush-quo_one, .jush-php_eot, .jush-apo, .jush-sql_apo, .jush-sqlite_apo, .jush-sql_quo, .jush-sql_eot { color: green; }
+.jush-php_apo { color: #009F00; }
+.jush-php_quo_var, .jush-php_var, .jush-sql_var { font-style: italic; }
+.jush-php_apo .jush-php_quo_var, .jush-php_apo .jush-php_var { font-style: normal; }
+.jush-php_halt2 { background-color: #272b30; color: #c8c8c8; }
+.jush-tag_css, .jush-att_css .jush-att_quo, .jush-att_css .jush-att_apo, .jush-att_css .jush-att_val { color: #c8c8c8; background-color: #272b30; }
+.jush-tag_js, .jush-att_js .jush-att_quo, .jush-att_js .jush-att_apo, .jush-att_js .jush-att_val, .jush-css_js { color: #5ebf4f; background-color: #272b30; }
+.jush-tag, .jush-xml_tag { color: #c8c8c8; }
+.jush-att, .jush-xml_att, .jush-att_js, .jush-att_css, .jush-att_http { color: #2CC990; }
+.jush-att_quo, .jush-att_apo, .jush-att_val { color: #7abcff; }
+.jush-ent { color: #7abcff; }
+.jush-js_key, .jush-js_key .jush-quo, .jush-js_key .jush-apo { color: #7abcff; }
+.jush-js_reg { color: #c8c8c8; }
+.jush-php_sql .jush-php_quo, .jush-php_sql .jush-php_apo,
+.jush-php_sqlite .jush-php_quo, .jush-php_sqlite .jush-php_apo,
+.jush-php_pgsql .jush-php_quo, .jush-php_pgsql .jush-php_apo,
+.jush-php_mssql .jush-php_quo, .jush-php_mssql .jush-php_apo,
+.jush-php_oracle .jush-php_quo, .jush-php_oracle .jush-php_apo
+{ background-color: #FFBBB0; }
+.jush-bac, .jush-php_bac, .jush-bra, .jush-mssql_bra, .jush-sqlite_quo { color: #5bb6ad; }
+.jush-num, .jush-clr { color: #5ebf4f; }
+
+.jush a { color: #c8c8c8; }
+.jush a.jush-help { cursor: help; }
+.jush-sql a, .jush-sql_code a, .jush-sqlite a, .jush-pgsql a, .jush-mssql a, .jush-oracle a, .jush-simpledb a { font-weight: bold; }
+.jush-php_sql .jush-php_quo a, .jush-php_sql .jush-php_apo a { font-weight: normal; }
+.jush-tag a, .jush-att a, .jush-apo a, .jush-quo a, .jush-php_apo a, .jush-php_quo a, .jush-php_eot2 a { color: inherit; color: expression(parentNode.currentStyle.color); }
+a.jush-custom:link, a.jush-custom:visited { font-weight: normal; color: #5bb6ad; }
+
+.jush p { margin: 0; }
