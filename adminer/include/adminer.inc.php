@@ -690,6 +690,9 @@ focus(document.getElementById('username'));
 						$values = array();
 						foreach ($row as $val) {
 							$field = $result->fetch_field();
+                            if ($fields[$field->name]['is_virtual']) {
+                                continue;
+                            }
 							$keys[] = $field->name;
 							$key = idf_escape($field->name);
 							$values[] = "$key = VALUES($key)";
