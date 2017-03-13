@@ -1,12 +1,13 @@
 /** @author Makushin Dmitriy and Yuri Vysotskiy */ 
 
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" all; 
-/* @import "/font-awesome.css" all; */
+@import "/font-awesome.css" all;
 
 body { color: #c8c8c8; background: #272b30; font: 90%/1.25 Verdana, Arial, Helvetica, sans-serif; margin: 0; }
 a { color: #c8c8c8; text-decoration: none; }
 a:visited { color: #c8c8c8; }
-a:link:hover, a:visited:hover { color: #c8c8c8; text-decoration: underline; }
+a:link:hover { color: #c8ffd5; text-decoration: underline; background: #000000; }
+a:visited:hover { color: #ff0000; text-decoration: underline; background: #000000; }
 a.text:hover { color: #c8c8c8; text-decoration: none; }
 a.jush-help:hover { color: #c8c8c8; }
 h1 { font-size: 150%; margin: 0; padding: .8em 1em; border-bottom: 1px solid #999; font-weight: normal; color: #c8c8c8; background: #272b30; }
@@ -336,7 +337,7 @@ a[href$="&import="] :before{
 #menu p a[href*="&select="]:hover:before{
 	text-decoration: underline;
 	background-color: #3e444c;
-	border: d 1px #222222;
+	border: solid 1px #222222;
 }
 #menu p a[href*="&select="]:before{
 	font-family: FontAwesome;

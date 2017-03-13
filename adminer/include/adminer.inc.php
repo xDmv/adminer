@@ -98,7 +98,7 @@ class Adminer {
 focus(document.getElementById('username'));
 </script>
 <?php
-		echo "<p><input type='submit' value='" . lang('Login') . "'>\n";
+        echo "<p><input type='submit' value='" . lang('Login') . "'>\n";
 		echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
 	}
 
@@ -129,7 +129,7 @@ focus(document.getElementById('username'));
 	* @return string HTML code, "" to ignore field
 	*/
 	function fieldName($field, $order = 0) {
-		return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
+	    return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
 	}
 
 	/** Print links after select heading
@@ -230,6 +230,8 @@ focus(document.getElementById('username'));
 	* @return string
 	*/
 	function selectVal($val, $link, $field, $original) {
+        // echo "I|I";
+
 		$return = ($val === null ? "<i>NULL</i>" : (preg_match("~char|binary~", $field["type"]) && !preg_match("~var~", $field["type"]) ? "<code>$val</code>" : $val));
 		if (preg_match('~blob|bytea|raw|file~', $field["type"]) && !is_utf8($val)) {
 			$return = lang('%d byte(s)', strlen($original));
@@ -243,6 +245,7 @@ focus(document.getElementById('username'));
 	* @return string
 	*/
 	function editVal($val, $field) {
+
 		return $val;
 	}
 
@@ -257,6 +260,7 @@ focus(document.getElementById('username'));
 		$i = 0;
 		$select[""] = array();
 		foreach ($select as $key => $val) {
+
 			$val = $_GET["columns"][$key];
 			$column = select_input(" name='columns[$i][col]' onchange='" . ($key !== ""  ? "selectFieldChange(this.form)" : "selectAddRow(this)") . ";'", $columns, $val["col"]);
 			echo "<div>" . ($functions || $grouping ? "<select name='columns[$i][fun]' onchange='helpClose();" . ($key !== "" ? "" : " this.nextSibling.nextSibling.onchange();") . "'"
@@ -276,6 +280,7 @@ focus(document.getElementById('username'));
 	function selectSearchPrint($where, $columns, $indexes) {
 		print_fieldset("search", lang('Search'), $where);
 		foreach ($indexes as $i => $index) {
+
 			if ($index["type"] == "FULLTEXT") {
 				echo "(<i>" . implode("</i>, <i>", array_map('h', $index["columns"])) . "</i>) AGAINST";
 				echo " <input type='search' name='fulltext[$i]' value='" . h($_GET["fulltext"][$i]) . "' onchange='selectFieldChange(this.form);'>";
@@ -308,6 +313,7 @@ focus(document.getElementById('username'));
 		$i = 0;
 		foreach ((array) $_GET["order"] as $key => $val) {
 			if ($val != "") {
+
 				echo "<div>" . select_input(" name='order[$i]' onchange='selectFieldChange(this.form);'", $columns, $val);
 				echo checkbox("desc[$i]", 1, isset($_GET["desc"][$key]), lang('descending')) . "</div>\n";
 				$i++;
@@ -323,6 +329,7 @@ focus(document.getElementById('username'));
 	* @return null
 	*/
 	function selectLimitPrint($limit) {
+
 		echo "<fieldset><legend>" . lang('Limit') . "</legend><div>"; // <div> for easy styling
 		echo "<input type='number' name='limit' class='size' value='" . h($limit) . "' onchange='selectFieldChange(this.form);'>";
 		echo "</div></fieldset>\n";
@@ -334,6 +341,7 @@ focus(document.getElementById('username'));
 	*/
 	function selectLengthPrint($text_length) {
 		if ($text_length !== null) {
+
 			echo "<fieldset><legend>" . lang('Text length') . "</legend><div>";
 			echo "<input type='number' name='text_length' class='size' value='" . h($text_length) . "'>";
 			echo "</div></fieldset>\n";
@@ -398,6 +406,7 @@ focus(document.getElementById('username'));
 		$select = array(); // select expressions, empty for *
 		$group = array(); // expressions without aggregation - will be used for GROUP BY if an aggregation function is used
 		foreach ((array) $_GET["columns"] as $key => $val) {
+            echo "DDD";
 			if ($val["fun"] == "count" || ($val["col"] != "" && (!$val["fun"] || in_array($val["fun"], $functions) || in_array($val["fun"], $grouping)))) {
 				$select[$key] = apply_sql_function($val["fun"], ($val["col"] != "" ? idf_escape($val["col"]) : "*"));
 				if (!in_array($val["fun"], $grouping)) {
@@ -414,6 +423,7 @@ focus(document.getElementById('username'));
 	* @return array expressions to join by AND
 	*/
 	function selectSearchProcess($fields, $indexes) {
+
 		global $connection, $jush;
 		$return = array();
 		foreach ($indexes as $i => $index) {
@@ -423,6 +433,7 @@ focus(document.getElementById('username'));
 		}
 		foreach ((array) $_GET["where"] as $val) {
 			if ("$val[col]$val[val]" != "" && in_array($val["op"], $this->operators)) {
+                echo "SS";
 				$cond = " $val[op]";
 				if (preg_match('~IN$~', $val["op"])) {
 					$in = process_length($val["val"]);
@@ -536,25 +547,25 @@ focus(document.getElementById('username'));
 	* @param array single field from fields()
 	* @return array
 	*/
-	function editFunctions($field) {
-		global $edit_functions;
-		$return = ($field["null"] ? "NULL/" : "");
-		foreach ($edit_functions as $key => $functions) {
-			if (!$key || (!isset($_GET["call"]) && (isset($_GET["select"]) || where($_GET)))) { // relative functions
-				foreach ($functions as $pattern => $val) {
-					if (!$pattern || preg_match("~$pattern~", $field["type"])) {
-						$return .= "/$val";
-					}
-				}
-				if ($key && !preg_match('~set|blob|bytea|raw|file~', $field["type"])) {
-					$return .= "/SQL";
-				}
-			}
-		}
-		if ($field["auto_increment"] && !isset($_GET["select"]) && !where($_GET)) {
-			$return = lang('Auto Increment');
-		}
-		return explode("/", $return);
+    function editFunctions($field) {
+        global $edit_functions;
+        $return = ($field["null"] ? "NULL/" : "");
+        foreach ($edit_functions as $key => $functions) {
+            if (!$key || (!isset($_GET["call"]) && (isset($_GET["select"]) || where($_GET)))) { // relative functions
+                foreach ($functions as $pattern => $val) {
+                    if (!$pattern || preg_match("~$pattern~", $field["type"])) {
+                        $return .= "/$val";
+                    }
+                }
+                if ($key && !preg_match('~set|blob|bytea|raw|file~', $field["type"])) {
+                    $return .= "/SQL";
+                }
+            }
+        }
+        if ($field["auto_increment"] && !isset($_GET["select"]) && !where($_GET)) {
+            $return = lang('Auto Increment');
+        }
+        return explode("/", $return);
 	}
 
 	/** Get options to display edit field
@@ -565,12 +576,28 @@ focus(document.getElementById('username'));
 	* @return string custom input field or empty string for default
 	*/
 	function editInput($table, $field, $attrs, $value) {
-		if ($field["type"] == "enum") {
-			return (isset($_GET["select"]) ? "<label><input type='radio'$attrs value='-1' checked><i>" . lang('original') . "</i></label> " : "")
-				. ($field["null"] ? "<label><input type='radio'$attrs value=''" . ($value !== null || isset($_GET["select"]) ? "" : " checked") . "><i>NULL</i></label> " : "")
-				. enum_input("radio", $attrs, $field, $value, 0) // 0 - empty
-			;
-		}
+
+
+            if ($field["type"] == "json") {
+                return ( "<label><textarea rows='10' cols='50'>" .$value.   "</textarea></label>")
+                    ;
+                //        (isset($_GET["select"]) ? "<label><input type='radio'$attrs value='-1' checked><i>" . lang('original') . "</i></label> " : "")
+                //        . ($field["null"] ? "<label><input type='radio'$attrs value=''" . ($value !== null || isset($_GET["select"]) ? "" : " checked") . "><i>NULL</i></label> " : "")
+                //        . enum_input("radio", $attrs, $field, $value, 0) // 0 - empty
+                //        ;
+            }
+            else
+            {
+                if ($field["type"] == "enum")  {
+                    return (isset($_GET["select"]) ? "<label><input type='radio'$attrs value='-1' checked><i>" . lang('original') . "</i></label> " : "")
+                        . ($field["null"] ? "<label><input type='radio'$attrs value=''" . ($value !== null || isset($_GET["select"]) ? "" : " checked") . "><i>NULL</i></label> " : "")
+                        . enum_input("radio", $attrs, $field, $value, 0) // 0 - empty
+                        ;
+                }
+            }
+
+
+
 		return "";
 	}
 
@@ -581,6 +608,7 @@ focus(document.getElementById('username'));
 	* @return string expression to use in a query
 	*/
 	function processInput($field, $value, $function = "") {
+
 		if ($function == "SQL") {
 			return $value; // SQL injection
 		}
@@ -680,56 +708,74 @@ focus(document.getElementById('username'));
 			}
 			$result = $connection->query($query, 1); // 1 - MYSQLI_USE_RESULT //! enum and set as numbers
 			if ($result) {
-				$insert = "";
+				$vvv=array();
+			    $insert = "";
 				$buffer = "";
 				$keys = array();
 				$suffix = "";
 				$fetch_function = ($table != '' ? 'fetch_assoc' : 'fetch_row');
 				while ($row = $result->$fetch_function()) {
-					if (!$keys) {
+				    if (!$keys) {
 						$values = array();
 						foreach ($row as $val) {
 							$field = $result->fetch_field();
                             if ($fields[$field->name]['is_virtual']) {
+                                // $keys[]="";
+                                $vvv[] = idf_escape($field->name);
+                                //echo $vvv;
                                 continue;
                             }
 							$keys[] = $field->name;
 							$key = idf_escape($field->name);
 							$values[] = "$key = VALUES($key)";
 						}
+
 						$suffix = ($style == "INSERT+UPDATE" ? "\nON DUPLICATE KEY UPDATE " . implode(", ", $values) : "") . ";\n";
+
 					}
 					if ($_POST["format"] != "sql") {
 						if ($style == "table") {
+                            //if ($key="sidec"){continue;}
 							dump_csv($keys);
 							$style = "INSERT";
 						}
+
 						dump_csv($row);
 					} else {
-						if (!$insert) {
-							$insert = "INSERT INTO " . table($table) . " (" . implode(", ", array_map('idf_escape', $keys)) . ") VALUES";
-						}
-						foreach ($row as $key => $val) {
-							$field = $fields[$key];
-							$row[$key] = ($val !== null
-								? unconvert_field($field, preg_match('~(^|[^o])int|float|double|decimal~', $field["type"]) && $val != '' ? $val : q($val))
-								: "NULL"
-							);
-						}
-						$s = ($max_packet ? "\n" : " ") . "(" . implode(",\t", $row) . ")";
-						if (!$buffer) {
-							$buffer = $insert . $s;
-						} elseif (strlen($buffer) + 4 + strlen($s) + strlen($suffix) < $max_packet) { // 4 - length specification
-							$buffer .= ",$s";
-						} else {
-							echo $buffer . $suffix;
-							$buffer = $insert . $s;
-						}
-					}
+                            if (!$insert) {
+                                $insert = "INSERT INTO " . table($table) . " (" . implode(", ", array_map('idf_escape', $keys)) . ") VALUES";
+                            }
+                            //print_r($row);
+
+                            foreach ($row as $key => $val) {
+                                if(in_array("`".$key."`", (array)$vvv )) {
+                                    unset($row[$key]);
+                                   continue;
+                                }
+                                    $field = $fields[$key];
+                                    $row[$key] = ($val !== null
+                                        ? unconvert_field($field, preg_match('~(^|[^o])int|float|double|decimal~', $field["type"]) && $val != '' ? $val : q($val))
+                                        : "NULL"
+                                    );
+
+                            }
+
+                            $s = ($max_packet ? "\n" : " ") . "(" . implode(",\t", $row) . ")";
+                            if (!$buffer) {
+                                $buffer = $insert . $s;
+                            } elseif (strlen($buffer) + 4 + strlen($s) + strlen($suffix) < $max_packet) { // 4 - length specification
+                                $buffer .= ",$s";
+                            } else {
+                                echo $buffer . $suffix;
+                                $buffer = $insert . $s;
+                            }
+					    }
 				}
+
 				if ($buffer) {
 					echo $buffer . $suffix;
 				}
+                
 			} elseif ($_POST["format"] == "sql") {
 				echo "-- " . str_replace("\n", " ", $connection->error) . "\n";
 			}
