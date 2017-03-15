@@ -808,7 +808,7 @@ if (!defined("DRIVER")) {
 	*/
 	function routine($name, $type) {
 		global $connection, $enum_length, $inout, $types;
-		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar", "json" , "GENERATION_EXPRESSION");
+		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar", "json");
 		$type_pattern = "((" . implode("|", array_merge(array_keys($types), $aliases)) . ")\\b(?:\\s*\\(((?:[^'\")]|$enum_length)++)\\))?\\s*(zerofill\\s*)?(unsigned(?:\\s+zerofill)?)?)(?:\\s*(?:CHARSET|CHARACTER\\s+SET)\\s*['\"]?([^'\"\\s,]+)['\"]?)?";
 		$pattern = "\\s*(" . ($type == "FUNCTION" ? "" : $inout) . ")?\\s*(?:`((?:[^`]|``)*)`\\s*|\\b(\\S+)\\s+)$type_pattern";
 		$create = $connection->result("SHOW CREATE $type " . idf_escape($name), 2);
@@ -1052,7 +1052,7 @@ if (!defined("DRIVER")) {
 			"(^|[^o])int|float|double|decimal" => "+/-", // not point
 			"date" => "+ interval/- interval",
 			"time" => "addtime/subtime",
-			"char|text|json" => "concat",
+			"char|text" => "concat",
 		)
 	);
 }
