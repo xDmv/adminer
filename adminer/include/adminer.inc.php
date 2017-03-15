@@ -539,24 +539,31 @@ focus(document.getElementById('username'));
 	* @return array
 	*/
     function editFunctions($field) {
-        global $edit_functions;
-        $return = ($field["null"] ? "NULL/" : "");
-        foreach ($edit_functions as $key => $functions) {
-            if (!$key || (!isset($_GET["call"]) && (isset($_GET["select"]) || where($_GET)))) { // relative functions
-                foreach ($functions as $pattern => $val) {
-                    if (!$pattern || preg_match("~$pattern~", $field["type"])) {
-                        $return .= "/$val";
+        if ($field["is_virtual"]){ echo "Not Edit!";
+            return explode("/", $return);
+        }
+        else
+        {
+            global $edit_functions;
+            $return = ($field["null"] ? "NULL/" : "");
+            foreach ($edit_functions as $key => $functions) {
+                if (!$key || (!isset($_GET["call"]) && (isset($_GET["select"]) || where($_GET)))) { // relative functions
+                    foreach ($functions as $pattern => $val) {
+                        if (!$pattern || preg_match("~$pattern~", $field["type"])) {
+                            $return .= "/$val";
+                        }
+                    }
+                    if ($key && !preg_match('~set|blob|bytea|raw|file~', $field["type"])) {
+                        $return .= "/SQL";
                     }
                 }
-                if ($key && !preg_match('~set|blob|bytea|raw|file~', $field["type"])) {
-                    $return .= "/SQL";
-                }
             }
+            if ($field["auto_increment"] && !isset($_GET["select"]) && !where($_GET)) {
+                $return = lang('Auto Increment');
+            }
+            return explode("/", $return);
         }
-        if ($field["auto_increment"] && !isset($_GET["select"]) && !where($_GET)) {
-            $return = lang('Auto Increment');
-        }
-        return explode("/", $return);
+
 	}
 
 	/** Get options to display edit field
@@ -567,7 +574,9 @@ focus(document.getElementById('username'));
 	* @return string custom input field or empty string for default
 	*/
 	function editInput($table, $field, $attrs, $value) {
-         if ($field["is_virtual"]){ echo "Not Edit!"; }
+         if ($field["is_virtual"]){
+             return "<label $attrs>" . h($value) . '</label>';
+         }
          else
          {
             if ($field["type"] == "json") {
