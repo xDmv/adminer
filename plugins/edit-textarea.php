@@ -13,7 +13,7 @@ class AdminerEditTextarea {
 			return "<textarea cols='30' rows='1' style='height: 1.2em;'$attrs>" . h($value) . '</textarea>';
 		}
         if (preg_match('~json~', $field["type"]))  {
-            return "<textarea cols='50' rows='10' '$attrs>" . h($value) . '</textarea>';
+            return "<textarea cols='50' rows='10' $attrs>" . h($value) . '</textarea>';
         }
 	}
 
