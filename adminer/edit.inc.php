@@ -5,8 +5,10 @@ $fields = fields($TABLE);
 $where = (isset($_GET["select"]) ? (count($_POST["check"]) == 1 ? where_check($_POST["check"][0], $fields) : "") : where($_GET, $fields));
 $update = (isset($_GET["select"]) ? $_POST["edit"] : $where);
 foreach ($fields as $name => $field) {
-    if ($field["is_virtual"]){ unset($fields[$name]);
-        continue;}
+    if ($field["is_virtual"]){
+        unset($fields[$name]);
+        continue;
+    }
 	if (!isset($field["privileges"][$update ? "update" : "insert"]) || $adminer->fieldName($field) == "") {
 		unset($fields[$name]);
 	}
@@ -69,6 +71,11 @@ if ($_POST["save"]) {
 } elseif ($where) {
 	$select = array();
 	foreach ($fields as $name => $field) {
+        if ($field["is_virtual"]){
+            unset($fields[$name]);
+            continue;
+        }
+
 		if (isset($field["privileges"]["select"])) {
 			$as = convert_field($field);
 			if ($_POST["clone"] && $field["auto_increment"]) {
