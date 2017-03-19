@@ -243,7 +243,7 @@ function json_row($key, $val = null) {
 		echo "{";
 	}
 	if ($key != "") {
-		echo ($first ? "" : ",") . "\n\t\"" . addcslashes($key, "\r\n\"\\/") . '": ' . ($val !== null ? '"' . addcslashes($val, "\r\n\"\\/") . '"' : 'undefined');
+		echo ($first ? "" : ",") . "\n\t\"" . addcslashes($key, "\r\n\t\"\\/") . '": ' . ($val !== null ? '"' . addcslashes($val, "\r\n\"\\/") . '"' : 'null');
 		$first = false;
 	} else {
 		echo "\n}\n";
@@ -412,10 +412,10 @@ function where($where, $fields = array()) {
 		$key = bracket_escape($key, 1); // 1 - back
 		$column = escape_key($key);
 		$return[] = $column
-			. (($jush == "sql" && preg_match('~^[0-9]*\\.[0-9]*$~', $val)) || $jush == "mssql"
-				? " LIKE " . q(addcslashes($val, "%_\\"))
+			. ($jush == "sql" && preg_match('~^[0-9]*\\.[0-9]*$~', $val) ? " LIKE " . q(addcslashes($val, "%_\\"))
+				: ($jush == "mssql" ? " LIKE " . q(preg_replace('~[_%[]~', '[\0]', $val))
 				: " = " . unconvert_field($fields[$key], q($val))
-			) // LIKE because of floats but slow with ints, in MS SQL because of text
+			)) // LIKE because of floats but slow with ints, in MS SQL because of text
 		; //! enum and set
 		if ($jush == "sql" && preg_match('~char|text~', $fields[$key]["type"]) && preg_match("~[^ -@]~", $val)) { // not just [a-z] to catch non-ASCII characters
 			$return[] = "$column = " . q($val) . " COLLATE " . charset($connection) . "_bin";
@@ -477,18 +477,12 @@ function convert_fields($columns, $fields, $select = array()) {
 */
 function cookie($name, $value, $lifetime = 2592000) { // 2592000 - 30 days
 	global $HTTPS;
-	$params = array(
-		$name,
-		(preg_match("~\n~", $value) ? "" : $value), // HTTP Response Splitting protection in PHP < 5.1.2
-		($lifetime ? time() + $lifetime : 0),
-		preg_replace('~\\?.*~', '', $_SERVER["REQUEST_URI"]),
-		"",
-		$HTTPS
+	return header("Set-Cookie: $name=" . urlencode($value)
+		. ($lifetime ? "; expires=" . gmdate("D, d M Y H:i:s", time() + $lifetime) . " GMT" : "")
+		. "; path=" . preg_replace('~\\?.*~', '', $_SERVER["REQUEST_URI"])
+		. ($HTTPS ? "; secure" : "")
+		. "; HttpOnly; SameSite=lax"
 	);
-	if (version_compare(PHP_VERSION, '5.2.0') >= 0) {
-		$params[] = true; // HttpOnly
-	}
-	return call_user_func_array('setcookie', $params);
 }
 
 /** Restart stopped session
@@ -750,7 +744,7 @@ function is_utf8($val) {
 * @return string escaped string with appended ...
 */
 function shorten_utf8($string, $length = 80, $suffix = "") {
-	if (!preg_match("(^(" . repeat_pattern("[\t\r\n -\x{FFFF}]", $length) . ")($)?)u", $string, $match)) { // ~s causes trash in $match[2] under some PHP versions, (.|\n) is slow
+	if (!preg_match("(^(" . repeat_pattern("[\t\r\n -\x{10FFFF}]", $length) . ")($)?)u", $string, $match)) { // ~s causes trash in $match[2] under some PHP versions, (.|\n) is slow
 		preg_match("(^(" . repeat_pattern("[\t\r\n -~]", $length) . ")($)?)", $string, $match);
 	}
 	return h($match[1]) . $suffix . (isset($match[2]) ? "" : "<i>...</i>");
@@ -890,6 +884,9 @@ function input($field, $value, $function) {
 		$input = $adminer->editInput($_GET["edit"], $field, $attrs, $value); // usage in call is without a table
 		if ($input != "") {
 			echo $input;
+		} elseif (preg_match('~bool~', $field["type"])) {
+			echo "<input type='hidden'$attrs value='0'>" .
+				"<input type='checkbox'" . (in_array(strtolower($value), array('1',  't',  'true',  'y',  'yes',  'on')) ? " checked='checked'" : "") . "$attrs value='1'>";
 		} elseif ($field["type"] == "set") { //! 64 bits
 			preg_match_all("~'((?:[^']|'')*)'~", $field["length"], $matches);
 			foreach ($matches[1] as $i => $val) {
@@ -907,7 +904,7 @@ function input($field, $value, $function) {
 				$attrs .= " cols='30' rows='$rows'" . ($rows == 1 ? " style='height: 1.2em;'" : ""); // 1.2em - line-height
 			}
 			echo "<textarea$attrs>" . h($value) . '</textarea>';
-		} elseif ($function == "json") {
+		} elseif ($function == "json" || preg_match('~^jsonb?$~', $field["type"])) {
 			echo "<textarea$attrs cols='50' rows='12' class='jush-js'>" . h($value) . '</textarea>';
 		} else {
 			// int(3) is only a display hint
@@ -917,7 +914,7 @@ function input($field, $value, $function) {
 			}
 			// type='date' and type='time' display localized value which may be confusing, type='datetime' uses 'T' as date and time separator
 			echo "<input"
-				. ((!$has_function || $function === "") && preg_match('~(?<!o)int~', $field["type"]) ? " type='number'" : "")
+				. ((!$has_function || $function === "") && preg_match('~(?<!o)int~', $field["type"]) && !preg_match('~\[\]~', $field["full_type"]) ? " type='number'" : "")
 				. " value='" . h($value) . "'" . ($maxlength ? " data-maxlength='$maxlength'" : "")
 				. (preg_match('~char|binary~', $field["type"]) && $maxlength > 20 ? " size='40'" : "")
 				. "$attrs>"
@@ -1141,7 +1138,7 @@ function select_value($val, $link, $field, $text_length) {
 			$link = "mailto:$val";
 		}
 		if ($protocol = is_url($val)) {
-			$link = (($protocol == "http" && $HTTPS) || preg_match('~WebKit~i', $_SERVER["HTTP_USER_AGENT"]) // WebKit supports noreferrer since 2009
+			$link = (($protocol == "http" && $HTTPS) || preg_match('~WebKit|Firefox~i', $_SERVER["HTTP_USER_AGENT"]) // WebKit supports noreferrer since 2009, Firefox since version 38
 				? $val // HTTP links from HTTPS pages don't receive Referer automatically
 				: "https://www.adminer.org/redirect/?url=" . urlencode($val) // intermediate page to hide Referer
 			);
@@ -1187,7 +1184,7 @@ function is_url($string) {
 * @return bool
 */
 function is_shortable($field) {
-	return preg_match('~char|text|lob|geometry|point|linestring|polygon|string~', $field["type"]);
+	return preg_match('~char|text|lob|geometry|point|linestring|polygon|string|bytea~', $field["type"]);
 }
 
 /** Get query to compute number of found rows
@@ -1215,7 +1212,7 @@ function slow_query($query) {
 	$db = $adminer->database();
 	$timeout = $adminer->queryTimeout();
 	if (support("kill") && is_object($connection2 = connect()) && ($db == "" || $connection2->select_db($db))) {
-		$kill = $connection2->result("SELECT CONNECTION_ID()"); // MySQL and MySQLi can use thread_id but it's not in PDO_MySQL
+		$kill = $connection2->result(connection_id()); // MySQL and MySQLi can use thread_id but it's not in PDO_MySQL
 		?>
 <script type="text/javascript">
 var timeout = setTimeout(function () {

@@ -1,7 +1,7 @@
 /** @author Makushin Dmitriy and Yuri Vysotskiy */ 
 
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" all; 
-@import "/font-awesome.css" all;
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" all;
+
 
 body { color: #c8c8c8; background: #272b30; font: 90%/1.25 Verdana, Arial, Helvetica, sans-serif; margin: 0; }
 a { color: #c8c8c8; text-decoration: none; }
@@ -16,7 +16,6 @@ a.jush-help:hover { color: #c8c8c8; }
 h1 { font-size: 150%; margin: 0; padding: .8em 1em; border-bottom: 1px solid #999; font-weight: normal; color: #c8c8c8; background: #272b30; }
 h2 { font-size: 150%; margin: 0 0 20px -18px; padding: .8em 1em; border-bottom: 1px solid #000; color: #c8c8c8; font-weight: normal; background: #272b30; }
 h3 { font-weight: normal; font-size: 130%; margin: 1em 0 0; }
-form { margin: 0; }
 td table { width: 100%; margin: 0; }
 table { margin: 1em 20px 0 0; border: 0; border-top: 1px solid rgba(0, 0, 0, 0.3); border-left: 1px solid rgba(0, 0, 0, 0.3); font-size: 90%; }
 td, th { border: 0; border-right: 1px solid rgba(0, 0, 0, 0.3); border-bottom: 1px solid rgba(0, 0, 0, 0.3); padding: .2em .3em; }
@@ -24,10 +23,10 @@ th { background: #353a41; text-align: left; }
 thead th { text-align: center; padding: .2em .5em; }
 thead td, thead th { background: #2e3338; }
 fieldset { display: inline; vertical-align: top; padding: .5em .8em; margin: .8em .5em 0 0; border: 1px solid #999; }
-p { margin: .8em 20px 0 0; }
+p { margin: .8em 20px 0 0; margin-left: 15px; }
 img { vertical-align: middle; border: 0; }
 td img { max-width: 200px; max-height: 200px; }
-code { background: transparent; color: #c8c8c8 }
+code { background: transparent; color: #c8c8c8; }
 tbody tr:hover td, tbody tr:hover th { background: #49515a; }
 pre { margin: 1em 0 0; }
 pre, textarea { font: 100%/1.25 monospace; }
@@ -37,7 +36,7 @@ input.required { box-shadow: 1px 1px 1px red; }
 input.maxlength { box-shadow: 1px 1px 1px red; }
 input.wayoff { left: -1000px; position: absolute; }
 .block { display: block; }
-.version { color: #c8c8c8; font-size: 67%; }
+.version { color: #c8c8c8; font-size: 75%; }
 .js .hidden, .nojs .jsonly { display: none; }
 .js .column { position: absolute; color: #fff; background-color: #3e444c; padding: .27em 1ex .3em 0; margin-top: -.27em; }
 .nowrap td, .nowrap th, td.nowrap { white-space: pre; }
@@ -66,12 +65,14 @@ input.wayoff { left: -1000px; position: absolute; }
 .size { width: 6ex; }
 .help { cursor: help; }
 .pages { position: fixed; bottom: 0; left: 21em; padding: 5px; border: 1px solid #999; color: #c8c8c8;background-color: #1c1e22;}
-.links a { white-space: nowrap; margin-right: 20px; }
+.links a { white-space: nowrap; margin-right: 10px;}
 .logout { margin-top: .5em; position: absolute; top: 0; right: 0; }
 .loadmore { margin-left: 1ex; }
 #menu { position: absolute; margin: 10px 0 0; padding: 0 0 30px 0; top: 2em; left: 0; width: 19em; }
-#menu p { padding: .8em 1em; margin: 0; border-bottom: 1px solid #ccc; }
-#dbs { overflow: hidden; }
+#menu ul { margin-top: 7px; padding-bottom: 7px; list-style: none; border-bottom: 1px solid #C8C8C8;}
+#menu p.links { padding-bottom: 7px; border-bottom: 1px solid #C8C8C8;}
+#dbs { overflow: hidden;}
+p#dbs {padding-bottom: 10px; border-bottom: 1px solid #c8c8c8;}
 #logins, #tables { white-space: nowrap; overflow: auto; }
 #logins a, #tables a, #tables span { background: #272b30; }
 #content { margin: 2em 0 0 21em; padding: 10px 20px 20px 0; }
@@ -259,6 +260,7 @@ input[name="logout"]:hover {color:#ee5f59;}
 	text-decoration: inherit;
 	content: "\f1c0";
 	margin-right: 3px;
+
 }
 
 a[href$="&sql="]:before{
@@ -325,24 +327,24 @@ a[href$="&import="] :before{
 	content: "\f2bb";
 	margin-right: 3px;
 }
-#menu p a[href*="&select="]{
+#menu li a[href*="&select="]{
 	/* clear:left;*/
 	display:block;
 	float:left;
 	height:16px;
-	margin-right: 10px;
+	margin-right: 5px;
 	/* overflow:hidden;
 	padding-left:16px;*/
-	width: 5px;
-	color:#32383e;
+	width: 15px;
+	color:#272b30;
 	text-decoration: none;
 }
-#menu p a[href*="&select="]:hover:before{
+#menu li a[href*="&select="]:hover:before{
 	text-decoration: underline;
 	background-color: #3e444c;
 	border: solid 1px #222222;
 }
-#menu p a[href*="&select="]:before{
+#menu li a[href*="&select="]:before{
 	font-family: FontAwesome;
 	font-weight: normal;
 	font-style: normal;
@@ -426,6 +428,6 @@ p.logout:before{
 .jush a.jush-help { cursor: help; }
 .jush-sql a, .jush-sql_code a, .jush-sqlite a, .jush-pgsql a, .jush-mssql a, .jush-oracle a, .jush-simpledb a { font-weight: bold; }
 .jush-php_sql .jush-php_quo a, .jush-php_sql .jush-php_apo a { font-weight: normal; }
-.jush-tag a, .jush-att a, .jush-apo a, .jush-quo a, .jush-php_apo a, .jush-php_quo a, .jush-php_eot2 a { color: inherit; color: expression(parentNode.currentStyle.color); }
+.jush-tag a, .jush-att a, .jush-apo a, .jush-quo a, .jush-php_apo a, .jush-php_quo a, .jush-php_eot2 a { color: inherit;  }
 
 .jush p { margin: 0; }

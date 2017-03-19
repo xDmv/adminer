@@ -301,12 +301,16 @@ if (!defined("DRIVER")) {
 	* @return mixed Min_DB or string for error
 	*/
 	function connect() {
-		global $adminer;
+		global $adminer, $types, $structured_types;
 		$connection = new Min_DB;
 		$credentials = $adminer->credentials();
 		if ($connection->connect($credentials[0], $credentials[1], $credentials[2])) {
 			$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
 			$connection->query("SET sql_quote_show_create = 1, autocommit = 1");
+			if (version_compare($connection->server_info, '5.7.8') >= 0) {
+				$structured_types[lang('Strings')][] = "json";
+				$types["json"] = 4294967295;
+			}
 			return $connection;
 		}
 		$return = $connection->error;
@@ -429,7 +433,7 @@ if (!defined("DRIVER")) {
 		global $connection;
 		$return = array();
 		foreach (get_rows($fast && $connection->server_info >= 5
-			? "SELECT TABLE_NAME AS Name, Engine, TABLE_COMMENT AS Comment FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() " . ($name != "" ? "AND TABLE_NAME = " . q($name) : "ORDER BY Name")
+			? "SELECT TABLE_NAME AS Name, ENGINE AS Engine, TABLE_COMMENT AS Comment FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() " . ($name != "" ? "AND TABLE_NAME = " . q($name) : "ORDER BY Name")
 			: "SHOW TABLE STATUS" . ($name != "" ? " LIKE " . q(addcslashes($name, "%_\\")) : "")
 		) as $row) {
 			if ($row["Engine"] == "InnoDB") {
@@ -501,10 +505,11 @@ if (!defined("DRIVER")) {
 	function indexes($table, $connection2 = null) {
 		$return = array();
 		foreach (get_rows("SHOW INDEX FROM " . table($table), $connection2) as $row) {
-			$return[$row["Key_name"]]["type"] = ($row["Key_name"] == "PRIMARY" ? "PRIMARY" : ($row["Index_type"] == "FULLTEXT" ? "FULLTEXT" : ($row["Non_unique"] ? "INDEX" : "UNIQUE")));
-			$return[$row["Key_name"]]["columns"][] = $row["Column_name"];
-			$return[$row["Key_name"]]["lengths"][] = $row["Sub_part"];
-			$return[$row["Key_name"]]["descs"][] = null;
+			$name = $row["Key_name"];
+			$return[$name]["type"] = ($name == "PRIMARY" ? "PRIMARY" : ($row["Index_type"] == "FULLTEXT" ? "FULLTEXT" : ($row["Non_unique"] ? ($row["Index_type"] == "SPATIAL" ? "SPATIAL" : "INDEX") : "UNIQUE")));
+			$return[$name]["columns"][] = $row["Column_name"];
+			$return[$name]["lengths"][] = ($row["Index_type"] == "SPATIAL" ? null : $row["Sub_part"]);
+			$return[$name]["descs"][] = null;
 		}
 		return $return;
 	}
@@ -808,7 +813,7 @@ if (!defined("DRIVER")) {
 	*/
 	function routine($name, $type) {
 		global $connection, $enum_length, $inout, $types;
-		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar", "json");
+		$aliases = array("bool", "boolean", "integer", "double precision", "real", "dec", "numeric", "fixed", "national char", "national varchar");
 		$type_pattern = "((" . implode("|", array_merge(array_keys($types), $aliases)) . ")\\b(?:\\s*\\(((?:[^'\")]|$enum_length)++)\\))?\\s*(zerofill\\s*)?(unsigned(?:\\s+zerofill)?)?)(?:\\s*(?:CHARSET|CHARACTER\\s+SET)\\s*['\"]?([^'\"\\s,]+)['\"]?)?";
 		$pattern = "\\s*(" . ($type == "FUNCTION" ? "" : $inout) . ")?\\s*(?:`((?:[^`]|``)*)`\\s*|\\b(\\S+)\\s+)$type_pattern";
 		$create = $connection->result("SHOW CREATE $type " . idf_escape($name), 2);
@@ -973,6 +978,14 @@ if (!defined("DRIVER")) {
 		return get_key_vals("SHOW STATUS");
 	}
 
+	/** Get replication status of master or slave
+	* @param string
+	* @return array ($name => $value)
+	*/
+	function replication_status($type) {
+		return get_rows("SHOW $type STATUS");
+	}
+
 	/** Convert field in select and edit
 	* @param array one element from fields()
 	* @return string
@@ -1013,11 +1026,15 @@ if (!defined("DRIVER")) {
 	*/
 	function support($feature) {
 		global $connection;
-		return !preg_match("~scheme|sequence|type|view_trigger" . ($connection->server_info < 5.1 ? "|event|partitioning" . ($connection->server_info < 5 ? "|routine|trigger|view" : "") : "") . "~", $feature);
+		return !preg_match("~scheme|sequence|type|view_trigger|materializedview" . ($connection->server_info < 5.1 ? "|event|partitioning" . ($connection->server_info < 5 ? "|routine|trigger|view" : "") : "") . "~", $feature);
 	}
 
 	function kill_process($val) {
 		return queries("KILL " . number($val));
+	}
+
+	function connection_id(){
+		return "SELECT CONNECTION_ID()";
 	}
 
 	function max_connections() {
@@ -1031,7 +1048,7 @@ if (!defined("DRIVER")) {
 	foreach (array(
 		lang('Numbers') => array("tinyint" => 3, "smallint" => 5, "mediumint" => 8, "int" => 10, "bigint" => 20, "decimal" => 66, "float" => 12, "double" => 21),
 		lang('Date and time') => array("date" => 10, "datetime" => 19, "timestamp" => 19, "time" => 10, "year" => 4),
-		lang('Strings') => array("char" => 255, "varchar" => 65535, "tinytext" => 255, "text" => 65535, "mediumtext" => 16777215, "longtext" => 4294967295, "json" => 4294967295),
+		lang('Strings') => array("char" => 255, "varchar" => 65535, "tinytext" => 255, "text" => 65535, "mediumtext" => 16777215, "longtext" => 4294967295),
 		lang('Lists') => array("enum" => 65535, "set" => 64),
 		lang('Binary') => array("bit" => 20, "binary" => 255, "varbinary" => 65535, "tinyblob" => 255, "blob" => 65535, "mediumblob" => 16777215, "longblob" => 4294967295),
 		lang('Geometry') => array("geometry" => 0, "point" => 0, "linestring" => 0, "polygon" => 0, "multipoint" => 0, "multilinestring" => 0, "multipolygon" => 0, "geometrycollection" => 0),

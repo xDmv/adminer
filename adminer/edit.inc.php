@@ -75,7 +75,6 @@ if ($_POST["save"]) {
             unset($fields[$name]);
             continue;
         }
-
 		if (isset($field["privileges"]["select"])) {
 			$as = convert_field($field);
 			if ($_POST["clone"] && $field["auto_increment"]) {

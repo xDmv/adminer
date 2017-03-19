@@ -239,7 +239,7 @@ function checkboxClick(event, el) {
 function setHtml(id, html) {
 	var el = document.getElementById(id);
 	if (el) {
-		if (html == undefined) {
+		if (html == null) {
 			el.parentNode.innerHTML = '&nbsp;';
 		} else {
 			el.innerHTML = html;
@@ -310,8 +310,12 @@ function selectAddRow(field) {
 	var inputs = row.getElementsByTagName('input');
 	for (var i=0; i < inputs.length; i++) {
 		inputs[i].name = inputs[i].name.replace(/[a-z]\[\d+/, '$&1');
-		inputs[i].value = '';
 		inputs[i].className = '';
+		if (inputs[i].type == 'checkbox') {
+			inputs[i].checked = false;
+		} else {
+			inputs[i].value = '';
+		}
 	}
 	field.parentNode.parentNode.appendChild(row);
 }

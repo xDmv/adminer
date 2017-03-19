@@ -76,8 +76,8 @@ class Adminer {
 	*/
 	function head() {
 		?>
-            <link rel="stylesheet" type="text/css" href="../externals/jush/jush.css">
-        <?php
+<link rel="stylesheet" type="text/css" href="../externals/jush/jush.css">
+<?php
 		return true;
 	}
 
@@ -98,7 +98,7 @@ class Adminer {
 focus(document.getElementById('username'));
 </script>
 <?php
-        echo "<p><input type='submit' value='" . lang('Login') . "'>\n";
+		echo "<p><input type='submit' value='" . lang('Login') . "'>\n";
 		echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
 	}
 
@@ -110,7 +110,7 @@ focus(document.getElementById('username'));
 	function login($login, $password) {
 		global $jush;
 		if ($jush == "sqlite") {
-			return lang('Implement %s method to use SQLite.', 'login()');
+			return lang('<a href="https://www.adminer.org/en/extension/" target="_blank">Implement</a> %s method to use SQLite.', '<code>login()</code>');
 		}
 		return true;
 	}
@@ -129,11 +129,7 @@ focus(document.getElementById('username'));
 	* @return string HTML code, "" to ignore field
 	*/
 	function fieldName($field, $order = 0) {
-	    if ($field["is_virtual"]){ return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';}
-	    else{
-            return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
-        }
-
+		return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
 	}
 
 	/** Print links after select heading
@@ -201,6 +197,15 @@ focus(document.getElementById('username'));
 		;
 	}
 
+	/** Query printed in SQL command before execution
+	* @param string query to be executed
+	* @return string escaped query to be printed
+	*/
+	function sqlCommandQuery($query)
+	{
+		return shorten_utf8(trim($query), 1000);
+	}
+
 	/** Description of a row in a table
 	* @param string
 	* @return string SQL expression, empty string for no description
@@ -236,9 +241,11 @@ focus(document.getElementById('username'));
 	function selectVal($val, $link, $field, $original) {
 		$return = ($val === null ? "<i>NULL</i>" : (preg_match("~char|binary~", $field["type"]) && !preg_match("~var~", $field["type"]) ? "<code>$val</code>" : $val));
 		if (preg_match('~blob|bytea|raw|file~', $field["type"]) && !is_utf8($val)) {
-			$return = lang('%d byte(s)', strlen($original));
+			$return = "<i>" . lang('%d byte(s)', strlen($original)) . "</i>";
 		}
-
+		if (preg_match('~json~', $field["type"])) {
+			$return = "<code class='jush-js'>$return</code>";
+		}
 		return ($link ? "<a href='" . h($link) . "'" . (is_url($link) ? " rel='noreferrer'" : "") . ">$return</a>" : $return);
 	}
 
@@ -249,6 +256,45 @@ focus(document.getElementById('username'));
 	*/
 	function editVal($val, $field) {
 		return $val;
+	}
+
+	/** Print table structure in tabular format
+	* @param array data about individual fields
+	* @return null
+	*/
+	function tableStructurePrint($fields) {
+		echo "<table cellspacing='0'>\n";
+		echo "<thead><tr><th>" . lang('Column') . "<td>" . lang('Type') . (support("comment") ? "<td>" . lang('Comment') : "") . "</thead>\n";
+		foreach ($fields as $field) {
+			echo "<tr" . odd() . "><th>" . h($field["field"]);
+			echo "<td><span title='" . h($field["collation"]) . "'>" . h($field["full_type"]) . "</span>";
+			echo ($field["null"] ? " <i>NULL</i>" : "");
+			echo ($field["auto_increment"] ? " <i>" . lang('Auto Increment') . "</i>" : "");
+			echo (isset($field["default"]) ? " <span title='" . lang('Default value') . "'>[<b>" . h($field["default"]) . "</b>]</span>" : "");
+			echo (support("comment") ? "<td>" . nbsp($field["comment"]) : "");
+			echo "\n";
+		}
+		echo "</table>\n";
+	}
+
+	/** Print list of indexes on table in tabular format
+	* @param array data about all indexes on a table
+	* @return null
+	*/
+	function tableIndexesPrint($indexes) {
+		echo "<table cellspacing='0'>\n";
+		foreach ($indexes as $name => $index) {
+			ksort($index["columns"]); // enforce correct columns order
+			$print = array();
+			foreach ($index["columns"] as $key => $val) {
+				$print[] = "<i>" . h($val) . "</i>"
+					. ($index["lengths"][$key] ? "(" . $index["lengths"][$key] . ")" : "")
+					. ($index["descs"][$key] ? " DESC" : "")
+				;
+			}
+			echo "<tr title='" . h($name) . "'><th>$index[type]<td>" . implode(", ", $print) . "\n";
+		}
+		echo "</table>\n";
 	}
 
 	/** Print columns box in select
@@ -357,8 +403,9 @@ focus(document.getElementById('username'));
 		echo "var indexColumns = ";
 		$columns = array();
 		foreach ($indexes as $index) {
-			if ($index["type"] != "FULLTEXT") {
-				$columns[reset($index["columns"])] = 1;
+			$current_key = reset($index["columns"]);
+			if ($index["type"] != "FULLTEXT" && $current_key) {
+				$columns[$current_key] = 1;
 			}
 		}
 		$columns[""] = 1;
@@ -428,7 +475,6 @@ focus(document.getElementById('username'));
 		}
 		foreach ((array) $_GET["where"] as $val) {
 			if ("$val[col]$val[val]" != "" && in_array($val["op"], $this->operators)) {
-
 				$cond = " $val[op]";
 				if (preg_match('~IN$~', $val["op"])) {
 					$in = process_length($val["val"]);
@@ -542,9 +588,9 @@ focus(document.getElementById('username'));
 	* @param array single field from fields()
 	* @return array
 	*/
-    function editFunctions($field) {
+	function editFunctions($field) {
         if ($field["is_virtual"]){ echo "Not Edit!";
-            return explode("/", $return);
+            return "";
         }
         else
         {
@@ -567,7 +613,6 @@ focus(document.getElementById('username'));
             }
             return explode("/", $return);
         }
-
 	}
 
 	/** Get options to display edit field
@@ -578,25 +623,27 @@ focus(document.getElementById('username'));
 	* @return string custom input field or empty string for default
 	*/
 	function editInput($table, $field, $attrs, $value) {
-         if ($field["is_virtual"]){
-             return "<label $attrs>" . h($value) . '</label>';
-         }
-         else
-         {
+        if ($field["is_virtual"]){
+            return "<label $attrs>" . h($value) . '</label>';
+        }
+        else
+        {
+
             if ($field["type"] == "json") {
-                return "<textarea cols='50' rows='12' $attrs>" . h($value) . '</textarea>';
+                return "<textarea cols='50' rows='12' $attrs name=''>" .
+                    h($value).
+                    '</textarea>';
             }
 
-                if ($field["type"] == "enum")  {
-                    return (isset($_GET["select"]) ? "<label><input type='radio'$attrs value='-1' checked><i>" . lang('original') . "</i></label> " : "")
-                        . ($field["null"] ? "<label><input type='radio'$attrs value=''" . ($value !== null || isset($_GET["select"]) ? "" : " checked") . "><i>NULL</i></label> " : "")
-                        . enum_input("radio", $attrs, $field, $value, 0) // 0 - empty
-                        ;
+            if ($field["type"] == "enum")  {
+                return (isset($_GET["select"]) ? "<label><input type='radio'$attrs value='-1' checked><i>" . lang('original') . "</i></label> " : "")
+                    . ($field["null"] ? "<label><input type='radio'$attrs value=''" . ($value !== null || isset($_GET["select"]) ? "" : " checked") . "><i>NULL</i></label> " : "")
+                    . enum_input("radio", $attrs, $field, $value, 0) // 0 - empty
+                    ;
 
             }
             // return "";
-         }
-
+        }
 	}
 
 	/** Process sent input
@@ -705,14 +752,13 @@ focus(document.getElementById('username'));
 			}
 			$result = $connection->query($query, 1); // 1 - MYSQLI_USE_RESULT //! enum and set as numbers
 			if ($result) {
-				$vvv=array();
-			    $insert = "";
+				$insert = "";
 				$buffer = "";
 				$keys = array();
 				$suffix = "";
 				$fetch_function = ($table != '' ? 'fetch_assoc' : 'fetch_row');
 				while ($row = $result->$fetch_function()) {
-				    if (!$keys) {
+					if (!$keys) {
 						$values = array();
 						foreach ($row as $val) {
 							$field = $result->fetch_field();
@@ -724,49 +770,43 @@ focus(document.getElementById('username'));
 							$key = idf_escape($field->name);
 							$values[] = "$key = VALUES($key)";
 						}
-
 						$suffix = ($style == "INSERT+UPDATE" ? "\nON DUPLICATE KEY UPDATE " . implode(", ", $values) : "") . ";\n";
-
 					}
 					if ($_POST["format"] != "sql") {
 						if ($style == "table") {
 							dump_csv($keys);
 							$style = "INSERT";
 						}
-
 						dump_csv($row);
 					} else {
-                            if (!$insert) {
-                                $insert = "INSERT INTO " . table($table) . " (" . implode(", ", array_map('idf_escape', $keys)) . ") VALUES";
+						if (!$insert) {
+							$insert = "INSERT INTO " . table($table) . " (" . implode(", ", array_map('idf_escape', $keys)) . ") VALUES";
+						}
+						foreach ($row as $key => $val) {
+                            if(in_array("`".$key."`", (array)$vvv )) {
+                                unset($row[$key]);
+                                continue;
                             }
-                            foreach ($row as $key => $val) {
-                                if(in_array("`".$key."`", (array)$vvv )) {
-                                    unset($row[$key]);
-                                    continue;
-                                }
-                                    $field = $fields[$key];
-                                    $row[$key] = ($val !== null
-                                        ? unconvert_field($field, preg_match('~(^|[^o])int|float|double|decimal~', $field["type"]) && $val != '' ? $val : q($val))
-                                        : "NULL"
-                                    );
-
-                            }
-
-                            $s = ($max_packet ? "\n" : " ") . "(" . implode(",\t", $row) . ")";
-                            if (!$buffer) {
-                                $buffer = $insert . $s;
-                            } elseif (strlen($buffer) + 4 + strlen($s) + strlen($suffix) < $max_packet) { // 4 - length specification
-                                $buffer .= ",$s";
-                            } else {
-                                echo $buffer . $suffix;
-                                $buffer = $insert . $s;
-                            }
-					    }
+							$field = $fields[$key];
+							$row[$key] = ($val !== null
+								? unconvert_field($field, preg_match('~(^|[^o])int|float|double|decimal~', $field["type"]) && $val != '' ? $val : q($val))
+								: "NULL"
+							);
+						}
+						$s = ($max_packet ? "\n" : " ") . "(" . implode(",\t", $row) . ")";
+						if (!$buffer) {
+							$buffer = $insert . $s;
+						} elseif (strlen($buffer) + 4 + strlen($s) + strlen($suffix) < $max_packet) { // 4 - length specification
+							$buffer .= ",$s";
+						} else {
+							echo $buffer . $suffix;
+							$buffer = $insert . $s;
+						}
+					}
 				}
 				if ($buffer) {
 					echo $buffer . $suffix;
 				}
-
 			} elseif ($_POST["format"] == "sql") {
 				echo "-- " . str_replace("\n", " ", $connection->error) . "\n";
 			}
@@ -846,11 +886,14 @@ focus(document.getElementById('username'));
 				$connection->select_db(DB);
 				$tables = table_status('', true);
 			}
-			if (support("sql")) {
-				?>
+			?>
 <script type="text/javascript" src="../externals/jush/modules/jush.js"></script>
 <script type="text/javascript" src="../externals/jush/modules/jush-textarea.js"></script>
 <script type="text/javascript" src="../externals/jush/modules/jush-txt.js"></script>
+<script type="text/javascript" src="../externals/jush/modules/jush-js.js"></script>
+<?php
+			if (support("sql")) {
+				?>
 <script type="text/javascript" src="../externals/jush/modules/jush-<?php echo $jush; ?>.js"></script>
 <script type="text/javascript">
 <?php
@@ -926,17 +969,18 @@ bodyLoad('<?php echo (is_object($connection) ? substr($connection->server_info, 
 	* @return null
 	*/
 	function tablesPrint($tables) {
-		echo "<p id='tables' onmouseover='menuOver(this, event);' onmouseout='menuOut(this);'>\n";
+		echo "<ul id='tables' onmouseover='menuOver(this, event);' onmouseout='menuOut(this);'>\n";
 		foreach ($tables as $table => $status) {
-			echo '<a href="' . h(ME) . 'select=' . urlencode($table) . '"' . bold($_GET["select"] == $table || $_GET["edit"] == $table, "select") . ">" . lang('select') . "</a> ";
+			echo '<li><a href="' . h(ME) . 'select=' . urlencode($table) . '"' . bold($_GET["select"] == $table || $_GET["edit"] == $table, "select") . ">" . lang('select') . "</a> ";
 			$name = $this->tableName($status);
 			echo (support("table") || support("indexes")
 				? '<a href="' . h(ME) . 'table=' . urlencode($table) . '"'
-					. bold(in_array($table, array($_GET["table"], $_GET["create"], $_GET["indexes"], $_GET["foreign"], $_GET["trigger"])), (is_view($status) ? "view" : ""), "structure")
+					. bold(in_array($table, array($_GET["table"], $_GET["create"], $_GET["indexes"], $_GET["foreign"], $_GET["trigger"])), (is_view($status) ? "view" : "structure"))
 					. " title='" . lang('Show structure') . "'>$name</a>"
 				: "<span>$name</span>"
-			) . "<br>\n";
+			) . "\n";
 		}
+		echo "</ul>\n";
 	}
 
 }

@@ -11,7 +11,7 @@ $translations = array(
 	'Logged as: %s' => 'Přihlášen jako: %s',
 	'Logout successful.' => 'Odhlášení proběhlo v pořádku.',
 	'Invalid credentials.' => 'Neplatné přihlašovací údaje.',
-	'Implement %s method to use SQLite.' => 'Pro přihlášení k SQLite implementujte metodu %s.',
+	'<a href="https://www.adminer.org/en/extension/" target="_blank">Implement</a> %s method to use SQLite.' => 'Pro přihlášení k SQLite <a href="https://www.adminer.org/cs/extension/" target="_blank">implementujte</a> metodu %s.',
 	'Too many unsuccessful logins, try again in %d minute(s).' => array('Příliš mnoho pokusů o přihlášení, zkuste to znovu za %d minutu.', 'Příliš mnoho pokusů o přihlášení, zkuste to znovu za %d minuty.', 'Příliš mnoho pokusů o přihlášení, zkuste to znovu za %d minut.'),
 	'Master password expired. <a href="https://www.adminer.org/en/extension/" target="_blank">Implement</a> %s method to make it permanent.' => 'Platnost hlavního hesla vypršela. <a href="https://www.adminer.org/cs/extension/" target="_blank">Implementujte</a> metodu %s, aby platilo stále.',
 	'Language' => 'Jazyk',
@@ -44,6 +44,10 @@ $translations = array(
 	
 	'Variables' => 'Proměnné',
 	'Status' => 'Stav',
+	
+	'Replication' => 'Replikace',
+	'Master status' => 'Master status',
+	'Slave status' => 'Slave status',
 	
 	'SQL command' => 'SQL příkaz',
 	'%d query(s) executed OK.' => array('%d příkaz proběhl v pořádku.', '%d příkazy proběhly v pořádku.', '%d příkazů proběhlo v pořádku.'),
@@ -84,7 +88,6 @@ $translations = array(
 	'Use' => 'Vybrat',
 	'Select database' => 'Vybrat databázi',
 	'Invalid database.' => 'Nesprávná databáze.',
-	'Create new database' => 'Vytvořit novou databázi',
 	'Database has been dropped.' => 'Databáze byla odstraněna.',
 	'Databases have been dropped.' => 'Databáze byly odstraněny.',
 	'Database has been created.' => 'Databáze byla vytvořena.',
@@ -184,13 +187,12 @@ $translations = array(
 	'Values' => 'Hodnoty',
 	
 	'View' => 'Pohled',
-	'Materialized View' => 'Materializovaný pohled',
+	'Materialized view' => 'Materializovaný pohled',
 	'View has been dropped.' => 'Pohled byl odstraněn.',
 	'View has been altered.' => 'Pohled byl změněn.',
 	'View has been created.' => 'Pohled byl vytvořen.',
 	'Alter view' => 'Pozměnit pohled',
 	'Create view' => 'Vytvořit pohled',
-	'Create materialized view' => 'Vytvořit materializovaný pohled',
 	
 	'Indexes' => 'Indexy',
 	'Indexes have been altered.' => 'Indexy byly změněny.',
@@ -337,4 +339,8 @@ $translations = array(
 	'Type has been dropped.' => 'Typ byl odstraněn.',
 	'Type has been created.' => 'Typ byl vytvořen.',
 	'Alter type' => 'Pozměnit typ',
+
+	'Replication' => null,
+	'Master status' => null,
+	'Slave status' => null,
 );
