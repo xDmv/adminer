@@ -129,7 +129,13 @@ focus(document.getElementById('username'));
 	* @return string HTML code, "" to ignore field
 	*/
 	function fieldName($field, $order = 0) {
-		return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
+        if ($field["is_virtual"]){
+            return '<span title="' . h($field["full_type"]) . '">' . h($field["field"])."(Not Edit!)". '</span>';
+        }
+        else{
+            return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
+        }
+
 	}
 
 	/** Print links after select heading
@@ -628,13 +634,6 @@ focus(document.getElementById('username'));
         }
         else
         {
-
-            if ($field["type"] == "json") {
-                return "<textarea cols='50' rows='12' $attrs name=''>" .
-                    h($value).
-                    '</textarea>';
-            }
-
             if ($field["type"] == "enum")  {
                 return (isset($_GET["select"]) ? "<label><input type='radio'$attrs value='-1' checked><i>" . lang('original') . "</i></label> " : "")
                     . ($field["null"] ? "<label><input type='radio'$attrs value=''" . ($value !== null || isset($_GET["select"]) ? "" : " checked") . "><i>NULL</i></label> " : "")

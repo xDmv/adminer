@@ -1,1 +1,1 @@
-docker-compose exec php bash -c 'cd /var/www/default/www/adminer/ && ./compile.php'
+docker-compose exec php bash -c 'cd /var/www/default/www/adminer4/ && ./compile.php'
