@@ -130,7 +130,7 @@ focus(document.getElementById('username'));
 	*/
 	function fieldName($field, $order = 0) {
         if ($field["is_virtual"]){
-            return '<span title="' . h($field["full_type"]) . '">' . h($field["field"])."(Not Edit!)". '</span>';
+            return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]). '</span>';
         }
         else{
             return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
@@ -595,11 +595,6 @@ focus(document.getElementById('username'));
 	* @return array
 	*/
 	function editFunctions($field) {
-        if ($field["is_virtual"]){ echo "Not Edit!";
-            return "";
-        }
-        else
-        {
             global $edit_functions;
             $return = ($field["null"] ? "NULL/" : "");
             foreach ($edit_functions as $key => $functions) {
@@ -618,7 +613,7 @@ focus(document.getElementById('username'));
                 $return = lang('Auto Increment');
             }
             return explode("/", $return);
-        }
+
 	}
 
 	/** Get options to display edit field
