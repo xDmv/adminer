@@ -1,7 +1,7 @@
 /** @author Makushin Dmitriy and Yuri Vysotskiy */ 
 
-@import "/font-awesome.css" all;
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" all;
+
 
 body { color: #c8c8c8; background: #272b30; font: 90%/1.25 Verdana, Arial, Helvetica, sans-serif; margin: 0; }
 a { color: #c8c8c8; text-decoration: none; }
@@ -171,15 +171,10 @@ input{
 	font-weight: normal;
 	text-align: left;
 	vertical-align: middle;
-	-ms-touch-action: manipulation;
 	touch-action: manipulation;
 	cursor: pointer;
 	border: 1px solid #3e444c;
 	white-space: nowrap;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 	padding: 1px 5px;
 	font-size: 12px;
 	line-height: 1.5;
