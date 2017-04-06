@@ -129,13 +129,7 @@ focus(document.getElementById('username'));
 	* @return string HTML code, "" to ignore field
 	*/
 	function fieldName($field, $order = 0) {
-        if ($field["is_virtual"]){
-            return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]). '</span>';
-        }
-        else{
             return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
-        }
-
 	}
 
 	/** Print links after select heading
