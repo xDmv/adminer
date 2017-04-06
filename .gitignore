@@ -12,3 +12,7 @@
 /project.default.xml
 /web-browsers.xml
 /_linux/*.xml
+/codestyles
+/codestyles/Default.xml
+/inspection/Default.xml
+editor.xml
