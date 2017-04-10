@@ -685,14 +685,57 @@ if (!defined("DRIVER")) {
 		if ($status) {
 			$alter[] = ltrim($status);
 		}
+        // Modification of generated columns
         if ($modifyt){
-            $sqlm = "";
+            $p = 0; $w = 0;
+            $sqlm ="";
             foreach ($modifyt as $zn){
-                $sqlm = $sqlm."\n Modify " . $zn.",";
+                $ss = substr($zn, 0, strpos($zn," "));
+                foreach ($alter as $key =>$change){
+                    $arte = substr($change,strpos($change,"NULL")+4,strlen($change));
+                    $collumn = substr($change,strpos($change,"CHANGE")+7,strpos($change,"` ")-6);
+                    if ($ss===$collumn){
+                        $alter[$key] = "Modify " . $zn.$arte;
+                        $p++;
+                    }
+                }
+                $w++;
             }
-            $sqlm = substr($sqlm, 0, strlen($sqlm)-1);
-
-            queries("ALTER TABLE " . table($table) . $sqlm);
+            if($p==0){
+                foreach ($modifyt as $zn){
+                    $sqlm = $sqlm."\n Modify " . $zn.",";
+                }
+                $sqlm = substr($sqlm, 0, strlen($sqlm)-1);
+                return queries("ALTER TABLE " . table($table) . $sqlm);
+            }
+            if ($w>1 && $p!=0){
+                if($w!=$p){
+                    $i=0; $j=0; $after="";
+                    foreach ($modifyt as $zn){
+                        $ss = substr($zn, 0, strpos($zn," "));
+                        foreach ($alter as $key =>$change) {
+                            $arte = substr($change, strpos($change, "NULL") + 4, strlen($change));
+                            $collumn = substr($change, strpos($change, "CHANGE") + 7, strpos($change, "` ") - 6);
+                            $after ="";
+                            if ($ss === $collumn) {
+                                unset($alter[$key]);
+                                $j++;
+                                $after = $arte;
+                            }
+                        }
+                        $i++;
+                        if($i==$j) {
+                            $alter[] = "Modify " . $zn.$after;
+                        }
+                        if (($i!=$j) && ($j>0) && ($i>$j)){
+                            $alter[] = "Modify " . $zn . $after;
+                        }
+                        else{
+                            $alter[] = "Modify " . $zn;
+                        }
+                    }
+                }
+            }
         }
 		return ($alter || $partitioning ? queries("ALTER TABLE " . table($table) . "\n" . implode(",\n", $alter) . $partitioning) : true);
 	}
