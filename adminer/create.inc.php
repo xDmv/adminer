@@ -37,6 +37,7 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 		$foreign = array();
 		$orig_field = reset($orig_fields);
 		$after = " FIRST";
+        $modifyt = array();
 
 		foreach ($row["fields"] as $key => $field) {
 			$foreign_key = $foreign_keys[$field["type"]];
@@ -75,6 +76,13 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 					$after = "";
 				}
 			}
+            if ($field["virtual1"]){
+                if(!$field["length"]){
+                    $modifyt[] = "`".$field["field"]."` ".$field["type"]." as ".$field["virtual1"];
+                } else {
+                    $modifyt[] = "`".$field["field"]."` ".$field["type"]."(".$field["length"].") as ".$field["virtual1"];
+                }
+            }
 		}
 
 		$partitioning = "";
@@ -110,7 +118,8 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 			($row["Engine"] && $row["Engine"] != $table_status["Engine"] ? $row["Engine"] : ""),
 			($row["Collation"] && $row["Collation"] != $table_status["Collation"] ? $row["Collation"] : ""),
 			($row["Auto_increment"] != "" ? number($row["Auto_increment"]) : ""),
-			$partitioning
+			$partitioning,
+            $modifyt
 		));
 	}
 }
@@ -181,7 +190,8 @@ if (!$_POST && !$comments) {
 		}
 	}
 }
-edit_fields($row["fields"], $collations, "TABLE", $foreign_keys, $comments);
+    $showtable = explode(",", create_sql($row["name"], ""));
+edit_fields($row["fields"], $collations, "TABLE", $foreign_keys, $comments, $showtable);
 ?>
 </table>
 <p>

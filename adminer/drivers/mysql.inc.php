@@ -662,7 +662,7 @@ if (!defined("DRIVER")) {
 	* @param string
 	* @return bool
 	*/
-	function alter_table($table, $name, $fields, $foreign, $comment, $engine, $collation, $auto_increment, $partitioning) {
+	function alter_table($table, $name, $fields, $foreign, $comment, $engine, $collation, $auto_increment, $partitioning, $modifyt) {
 		$alter = array();
 		foreach ($fields as $field) {
 			$alter[] = ($field[1]
@@ -685,6 +685,15 @@ if (!defined("DRIVER")) {
 		if ($status) {
 			$alter[] = ltrim($status);
 		}
+        if ($modifyt){
+            $sqlm = "";
+            foreach ($modifyt as $zn){
+                $sqlm = $sqlm."\n Modify " . $zn.",";
+            }
+            $sqlm = substr($sqlm, 0, strlen($sqlm)-1);
+
+            queries("ALTER TABLE " . table($table) . $sqlm);
+        }
 		return ($alter || $partitioning ? queries("ALTER TABLE " . table($table) . "\n" . implode(",\n", $alter) . $partitioning) : true);
 	}
 
