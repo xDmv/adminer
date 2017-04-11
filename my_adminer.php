@@ -1283,8 +1283,7 @@ as$o)$c[]=($o[1]?($R!=""?($o[0]!=""?"CHANGE ".idf_escape($o[0]):"ADD"):" ")." ".
 queries("CREATE TABLE ".table($C)." (\n".implode(",\n",$c)."\n)$P$_f");if($R!=$C)$c[]="RENAME TO ".table($C);if($P)$c[]=ltrim($P);if($De){$tf=0;$_i=0;$ah="";foreach($De
 as$Gi){$ch=substr($Gi,0,strpos($Gi," "));foreach($c
 as$y=>$ab){$Ga=substr($ab,strpos($ab,"NULL")+4,strlen($ab));$rb=substr($ab,strpos($ab,"CHANGE")+7,strpos($ab,"` ")-6);if($ch===$rb){$c[$y]="Modify ".$Gi.$Ga;$tf++;}}$_i++;}if($tf==0){foreach($De
-as$Gi)$ah=$ah."\n Modify ".$Gi.",";$ah=substr($ah,0,strlen($ah)-1);return
-queries("ALTER TABLE ".table($R).$ah);}if($_i>1&&$tf!=0){if($_i!=$tf){$s=0;$Md=0;$Aa="";foreach($De
+as$Gi)$ah=$ah."\nModify ".$Gi.",";$c[]=substr($ah,0,strlen($ah)-1);}if($_i>1&&$tf!=0){if($_i!=$tf){$s=0;$Md=0;$Aa="";foreach($De
 as$Gi){$ch=substr($Gi,0,strpos($Gi," "));foreach($c
 as$y=>$ab){$Ga=substr($ab,strpos($ab,"NULL")+4,strlen($ab));$rb=substr($ab,strpos($ab,"CHANGE")+7,strpos($ab,"` ")-6);$Aa="";if($ch===$rb){unset($c[$y]);$Md++;$Aa=$Ga;}}$s++;if($s==$Md)$c[]="Modify ".$Gi.$Aa;if(($s!=$Md)&&($Md>0)&&($s>$Md))$c[]="Modify ".$Gi.$Aa;else$c[]="Modify ".$Gi;}}}}return($c||$_f?queries("ALTER TABLE ".table($R)."\n".implode(",\n",$c).$_f):true);}function
 alter_indexes($R,$c){foreach($c

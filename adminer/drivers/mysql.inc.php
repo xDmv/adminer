@@ -703,10 +703,9 @@ if (!defined("DRIVER")) {
             }
             if($p==0){
                 foreach ($modifyt as $zn){
-                    $sqlm = $sqlm."\n Modify " . $zn.",";
+                    $sqlm = $sqlm."\nModify " . $zn.",";
                 }
-                $sqlm = substr($sqlm, 0, strlen($sqlm)-1);
-                return queries("ALTER TABLE " . table($table) . $sqlm);
+                $alter[] = substr($sqlm, 0, strlen($sqlm)-1);
             }
             if ($w>1 && $p!=0){
                 if($w!=$p){
