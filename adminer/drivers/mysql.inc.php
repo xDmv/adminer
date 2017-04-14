@@ -684,7 +684,7 @@ if (!defined("DRIVER")) {
 	* @param string
 	* @return bool
 	*/
-	function alter_table($table, $name, $fields, $foreign, $comment, $engine, $collation, $auto_increment, $partitioning, $modifyt) {
+	function alter_table($table, $name, $fields, $foreign, $comment, $engine, $collation, $auto_increment, $partitioning, $modifyt, $column_v) {
 		$alter = array();
 		foreach ($fields as $field) {
 			$alter[] = ($field[1]
@@ -708,6 +708,15 @@ if (!defined("DRIVER")) {
 			$alter[] = ltrim($status);
 		}
         // Modification of generated columns
+        foreach ($column_v as $zn) {
+            foreach ($alter as $key1 => $change) {
+                $collumn = substr($change,  7, strpos($change, "` ") - 6);
+                $collumn = substr($collumn,  1, strlen($collumn) - 2);
+                if ($zn === $collumn) {
+                    unset($alter[$key1]);
+                }
+            }
+        }
         if ($modifyt){
             foreach ($modifyt as $key => $zn){
                 $ss = substr($zn, 7, strpos($zn,"` ")-6);

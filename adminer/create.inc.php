@@ -38,6 +38,8 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 		$orig_field = reset($orig_fields);
 		$after = " FIRST";
         $modifyt = array();
+        $column_v = array();
+        $column_v_del = array();
         $showtable= tables_generated_columns("'".$row["name"]."'");
         $showtable2= tables_generated_columns2("'".$row["name"]."'");
 
@@ -80,6 +82,7 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 			}
             if ($field["virtual1"]){
                 $typee ="";
+                $column_v[]= $field["orig"];
                 if ($field["length"]){
                     $typee = $field["type"]."(".$field["length"].")";
                 }
@@ -89,6 +92,7 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
                 if (($showtable[$field["field"]] != $field["virtual1"]) ||
                     ($field["field"]!=$field["orig"]) || ($showtable2[$field["field"]] != $typee) ||
                     ($after)){
+                    $column_v_del[] = $field["orig"];
                     if ($field["length"]){
                         $modifyt[] = "CHANGE " ."`".$field["orig"]."` "."`".$field["field"]."` ".$field["type"]."(".$field["length"].") as (".$field["virtual1"].")";
                     } else{
@@ -122,6 +126,14 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 		}
 		$name = trim($row["name"]);
 
+        foreach ($column_v as $key => $vvv){
+            foreach ($column_v_del as $vvv2) {
+                if ($vvv==$vvv2){
+                    unset($column_v[$key]);
+                }
+            }
+        }
+
 		queries_redirect(ME . (support("table") ? "table=" : "select=") . urlencode($name), $message, alter_table(
 			$TABLE,
 			$name,
@@ -132,7 +144,8 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 			($row["Collation"] && $row["Collation"] != $table_status["Collation"] ? $row["Collation"] : ""),
 			($row["Auto_increment"] != "" ? number($row["Auto_increment"]) : ""),
 			$partitioning,
-            $modifyt
+            $modifyt,
+            $column_v
 		));
 	}
 }
