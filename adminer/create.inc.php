@@ -38,6 +38,8 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 		$orig_field = reset($orig_fields);
 		$after = " FIRST";
         $modifyt = array();
+        $showtable= tables_generated_columns("'".$row["name"]."'");
+        $showtable2= tables_generated_columns2("'".$row["name"]."'");
 
 		foreach ($row["fields"] as $key => $field) {
 			$foreign_key = $foreign_keys[$field["type"]];
@@ -77,10 +79,21 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 				}
 			}
             if ($field["virtual1"]){
-                if(!$field["length"]){
-                    $modifyt[] = "`".$field["field"]."` ".$field["type"]." as ".$field["virtual1"];
-                } else {
-                    $modifyt[] = "`".$field["field"]."` ".$field["type"]."(".$field["length"].") as ".$field["virtual1"];
+                $typee ="";
+                if ($field["length"]){
+                    $typee = $field["type"]."(".$field["length"].")";
+                }
+                else{
+                    $typee = $field["type"];
+                }
+                if (($showtable[$field["field"]] != $field["virtual1"]) ||
+                    ($field["field"]!=$field["orig"]) || ($showtable2[$field["field"]] != $typee) ||
+                    ($after)){
+                    if ($field["length"]){
+                        $modifyt[] = "CHANGE " ."`".$field["orig"]."` "."`".$field["field"]."` ".$field["type"]."(".$field["length"].") as (".$field["virtual1"].")";
+                    } else{
+                        $modifyt[] = "CHANGE " ."`".$field["orig"]."` "."`".$field["field"]."` ".$field["type"]." as (".$field["virtual1"].")";
+                    }
                 }
             }
 		}
@@ -190,8 +203,8 @@ if (!$_POST && !$comments) {
 		}
 	}
 }
-    $showtable = explode(",", create_sql($row["name"], ""));
-edit_fields($row["fields"], $collations, "TABLE", $foreign_keys, $comments, $showtable);
+    $showtable= tables_generated_columns("'".$row["name"]."'");
+    edit_fields($row["fields"], $collations, "TABLE", $foreign_keys, $comments, $showtable);
 ?>
 </table>
 <p>

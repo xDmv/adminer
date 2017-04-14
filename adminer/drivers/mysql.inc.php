@@ -412,6 +412,28 @@ if (!defined("DRIVER")) {
 		);
 	}
 
+    /** Get Schema of generated columns
+     * @return array array($name => $type)
+     */
+    function tables_generated_columns($table_name) {
+        global $connection;
+        return get_key_vals($connection->server_info >= 5
+            ? "SELECT `COLUMN_NAME`, `GENERATION_EXPRESSION`, `COLUMN_TYPE` FROM information_schema.`COLUMNS` WHERE `TABLE_SCHEMA` = (select database()) AND `EXTRA` = 'VIRTUAL GENERATED' AND `TABLE_NAME` =".$table_name
+            : "SHOW TABLES"
+        );
+    }
+
+    /** Get Schema of generated columns (type)
+     * @return array array($name => $type)
+     */
+    function tables_generated_columns2($table_name) {
+        global $connection;
+        return get_key_vals($connection->server_info >= 5
+            ? "SELECT `COLUMN_NAME`, `COLUMN_TYPE` FROM information_schema.`COLUMNS` WHERE `TABLE_SCHEMA` = (select database()) AND `EXTRA` = 'VIRTUAL GENERATED' AND `TABLE_NAME` =".$table_name
+            : "SHOW TABLES"
+        );
+    }
+
 	/** Count tables in all databases
 	* @param array
 	* @return array array($db => $tables)
@@ -687,53 +709,20 @@ if (!defined("DRIVER")) {
 		}
         // Modification of generated columns
         if ($modifyt){
-            $p = 0; $w = 0;
-            $sqlm ="";
-            foreach ($modifyt as $zn){
-                $ss = substr($zn, 0, strpos($zn," "));
-                foreach ($alter as $key =>$change){
+            foreach ($modifyt as $key => $zn){
+                $ss = substr($zn, 7, strpos($zn,"` ")-6);
+                foreach ($alter as $key1 =>$change){
                     $arte = substr($change,strpos($change,"NULL")+4,strlen($change));
                     $collumn = substr($change,strpos($change,"CHANGE")+7,strpos($change,"` ")-6);
                     if ($ss===$collumn){
-                        $alter[$key] = "Modify " . $zn.$arte;
-                        $p++;
+                        unset($alter[$key1]);
+                        $alter[$key1] = $zn.$arte;
+                        unset($modifyt[$key]);
                     }
                 }
-                $w++;
             }
-            if($p==0){
-                foreach ($modifyt as $zn){
-                    $sqlm = $sqlm."\nModify " . $zn.",";
-                }
-                $alter[] = substr($sqlm, 0, strlen($sqlm)-1);
-            }
-            if ($w>1 && $p!=0){
-                if($w!=$p){
-                    $i=0; $j=0; $after="";
-                    foreach ($modifyt as $zn){
-                        $ss = substr($zn, 0, strpos($zn," "));
-                        foreach ($alter as $key =>$change) {
-                            $arte = substr($change, strpos($change, "NULL") + 4, strlen($change));
-                            $collumn = substr($change, strpos($change, "CHANGE") + 7, strpos($change, "` ") - 6);
-                            $after ="";
-                            if ($ss === $collumn) {
-                                unset($alter[$key]);
-                                $j++;
-                                $after = $arte;
-                            }
-                        }
-                        $i++;
-                        if($i==$j) {
-                            $alter[] = "Modify " . $zn.$after;
-                        }
-                        if (($i!=$j) && ($j>0) && ($i>$j)){
-                            $alter[] = "Modify " . $zn . $after;
-                        }
-                        else{
-                            $alter[] = "Modify " . $zn;
-                        }
-                    }
-                }
+            foreach ($modifyt as $zn){
+                $alter[] = $zn;
             }
         }
 		return ($alter || $partitioning ? queries("ALTER TABLE " . table($table) . "\n" . implode(",\n", $alter) . $partitioning) : true);

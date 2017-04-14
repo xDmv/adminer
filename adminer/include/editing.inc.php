@@ -272,8 +272,7 @@ function edit_fields($fields, $collations, $type = "TABLE", $foreign_keys = arra
 <th><?php if ($display) { ?><input name="fields[<?php echo $i; ?>][field]" value="<?php echo h($field["field"]); ?>" onchange="editingNameChange(this);<?php echo ($field["field"] != "" || count($fields) > 1 ? '' : ' editingAddRow(this);" onkeyup="if (this.value) editingAddRow(this);'); ?>" maxlength="64" autocapitalize="off" aria-labelledby="label-name"><?php } ?>
 <input type="hidden" name="fields[<?php echo $i; ?>][orig]" value="<?php echo h($orig); ?>">
 <?php
-   $q1 = substr($showtable[substr($i, -2,1)-1], stripos($showtable[substr($i, -2,1)-1], "as")+3);
-   $q = substr($q1,0, strpos($q1,"VIRTUAL"));
+  $q = $showtable[$field["field"]];
    edit_type("fields[$i]", $field, $collations, $foreign_keys, $q);
 ?>
 <?php if ($type == "TABLE") { ?>
