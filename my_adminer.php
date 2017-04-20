@@ -135,7 +135,7 @@ is_mail($pc){$Ia='[-a-z0-9!#$%&\'*+/=?^_`{|}~]';$bc='[a-z0-9]([-a-z0-9]{0,61}[a-
 is_string($pc)&&preg_match("(^$Hf(,\\s*$Hf)*\$)i",$pc);}function
 is_url($Q){$bc='[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])';return(preg_match("~^(https?)://($bc?\\.)+$bc(:\\d+)?(/.*)?(\\?.*)?(#.*)?\$~i",$Q,$B)?strtolower($B[1]):"");}function
 is_shortable($o){return
-preg_match('~char|text|lob|geometry|point|linestring|polygon|string|bytea~',$o["type"]);}function
+preg_match('~char|text|lob|geometry|point|linestring|polygon|string|bytea|json~',$o["type"]);}function
 count_rows($R,$Z,$Jd,$hd){global$x;$H=" FROM ".table($R).($Z?" WHERE ".implode(" AND ",$Z):"");return($Jd&&($x=="sql"||count($hd)==1)?"SELECT COUNT(DISTINCT ".implode(", ",$hd).")$H":"SELECT COUNT(*)".($Jd?" FROM (SELECT 1$H$id) x":$H));}function
 slow_query($H){global$b,$Nh;$m=$b->database();$Fh=$b->queryTimeout();if(support("kill")&&is_object($h=connect())&&($m==""||$h->select_db($m))){$Vd=$h->result(connection_id());echo'<script type="text/javascript">
 var timeout = setTimeout(function () {
