@@ -129,7 +129,7 @@ focus(document.getElementById('username'));
 	* @return string HTML code, "" to ignore field
 	*/
 	function fieldName($field, $order = 0) {
-            return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
+		return '<span title="' . h($field["full_type"]) . '">' . h($field["field"]) . '</span>';
 	}
 
 	/** Print links after select heading
@@ -589,25 +589,24 @@ focus(document.getElementById('username'));
 	* @return array
 	*/
 	function editFunctions($field) {
-            global $edit_functions;
-            $return = ($field["null"] ? "NULL/" : "");
-            foreach ($edit_functions as $key => $functions) {
-                if (!$key || (!isset($_GET["call"]) && (isset($_GET["select"]) || where($_GET)))) { // relative functions
-                    foreach ($functions as $pattern => $val) {
-                        if (!$pattern || preg_match("~$pattern~", $field["type"])) {
-                            $return .= "/$val";
-                        }
-                    }
-                    if ($key && !preg_match('~set|blob|bytea|raw|file~', $field["type"])) {
-                        $return .= "/SQL";
-                    }
-                }
-            }
-            if ($field["auto_increment"] && !isset($_GET["select"]) && !where($_GET)) {
-                $return = lang('Auto Increment');
-            }
-            return explode("/", $return);
-
+		global $edit_functions;
+		$return = ($field["null"] ? "NULL/" : "");
+		foreach ($edit_functions as $key => $functions) {
+			if (!$key || (!isset($_GET["call"]) && (isset($_GET["select"]) || where($_GET)))) { // relative functions
+				foreach ($functions as $pattern => $val) {
+					if (!$pattern || preg_match("~$pattern~", $field["type"])) {
+						$return .= "/$val";
+					}
+				}
+				if ($key && !preg_match('~set|blob|bytea|raw|file~', $field["type"])) {
+					$return .= "/SQL";
+				}
+			}
+		}
+		if ($field["auto_increment"] && !isset($_GET["select"]) && !where($_GET)) {
+			$return = lang('Auto Increment');
+		}
+		return explode("/", $return);
 	}
 
 	/** Get options to display edit field

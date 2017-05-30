@@ -18,10 +18,9 @@ foreach ($fields as $key => $field) {
 	$name = $adminer->fieldName($field);
 	if (isset($field["privileges"]["select"]) && $name != "") {
         if ($field["is_virtual"]){
-            // unset($fields[$name]);
             continue;
         }
-	    $columns[$key] = html_entity_decode(strip_tags($name), ENT_QUOTES);
+		$columns[$key] = html_entity_decode(strip_tags($name), ENT_QUOTES);
 		if (is_shortable($field)) {
 			$text_length = $adminer->selectLengthProcess();
 		}
@@ -102,8 +101,7 @@ if ($_POST && !$error) {
 			$set = array();
 			if (!$_POST["delete"]) {
 				foreach ($columns as $name => $val) { //! should check also for edit or insert privileges
-
-                    $val = process_input($fields[$name]);
+					$val = process_input($fields[$name]);
 					if ($val !== null && ($_POST["clone"] || $val !== false)) {
 						$set[idf_escape($name)] = ($val !== false ? $val : idf_escape($name));
 					}

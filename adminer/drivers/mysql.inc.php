@@ -500,20 +500,20 @@ if (!defined("DRIVER")) {
 		foreach (get_rows("SHOW FULL COLUMNS FROM " . table($table)) as $row) {
 			preg_match('~^([^( ]+)(?:\\((.+)\\))?( unsigned)?( zerofill)?$~', $row["Type"], $match);
 			$return[$row["Field"]] = array(
-				"field" => $row["Field"],
-				"full_type" => $row["Type"],
-				"type" => $match[1],
-				"length" => $match[2],
-				"unsigned" => ltrim($match[3] . $match[4]),
-				"default" => ($row["Default"] != "" || preg_match("~char|set~", $match[1]) ? $row["Default"] : null),
-				"null" => ($row["Null"] == "YES"),
-				"auto_increment" => ($row["Extra"] == "auto_increment"),
+                "field" => $row["Field"],
+                "full_type" => $row["Type"],
+                "type" => $match[1],
+                "length" => $match[2],
+                "unsigned" => ltrim($match[3] . $match[4]),
+                "default" => ($row["Default"] != "" || preg_match("~char|set~", $match[1]) ? $row["Default"] : null),
+                "null" => ($row["Null"] == "YES"),
+                "auto_increment" => ($row["Extra"] == "auto_increment"),
                 "is_virtual" => (strpos(strtolower($row["Extra"]), "virtual") !== false),
-				"on_update" => (preg_match('~^on update (.+)~i', $row["Extra"], $match) ? $match[1] : ""), //! available since MySQL 5.1.23
-				"collation" => $row["Collation"],
-				"privileges" => array_flip(preg_split('~, *~', $row["Privileges"])),
-				"comment" => $row["Comment"],
-				"primary" => ($row["Key"] == "PRI"),
+                "on_update" => (preg_match('~^on update (.+)~i', $row["Extra"], $match) ? $match[1] : ""), //! available since MySQL 5.1.23
+                "collation" => $row["Collation"],
+                "privileges" => array_flip(preg_split('~, *~', $row["Privileges"])),
+                "comment" => $row["Comment"],
+                "primary" => ($row["Key"] == "PRI"),
 			);
 		}
 		return $return;
@@ -684,30 +684,40 @@ if (!defined("DRIVER")) {
 	* @param string
 	* @return bool
 	*/
-	function alter_table($table, $name, $fields, $foreign, $comment, $engine, $collation, $auto_increment, $partitioning, $modifyt, $column_v) {
-		$alter = array();
-		foreach ($fields as $field) {
-			$alter[] = ($field[1]
-				? ($table != "" ? ($field[0] != "" ? "CHANGE " . idf_escape($field[0]) : "ADD") : " ") . " " . implode($field[1]) . ($table != "" ? $field[2] : "")
-				: "DROP " . idf_escape($field[0])
-			);
-		}
-		$alter = array_merge($alter, $foreign);
-		$status = ($comment !== null ? " COMMENT=" . q($comment) : "")
-			. ($engine ? " ENGINE=" . q($engine) : "")
-			. ($collation ? " COLLATE " . q($collation) : "")
-			. ($auto_increment != "" ? " AUTO_INCREMENT=$auto_increment" : "")
-		;
-		if ($table == "") {
-			return queries("CREATE TABLE " . table($name) . " (\n" . implode(",\n", $alter) . "\n)$status$partitioning");
-		}
-		if ($table != $name) {
-			$alter[] = "RENAME TO " . table($name);
-		}
-		if ($status) {
-			$alter[] = ltrim($status);
-		}
+    function alter_table($table, $name, $fields, $foreign, $comment, $engine, $collation, $auto_increment, $partitioning, $modifyt, $column_v) {
+        $alter = array();
+        foreach ($fields as $field) {
+            $alter[] = ($field[1]
+                ? ($table != "" ? ($field[0] != "" ? "CHANGE " . idf_escape($field[0]) : "ADD") : " ") . " " . implode($field[1]) . ($table != "" ? $field[2] : "")
+                : "DROP " . idf_escape($field[0])
+            );
+        }
+        $alter = array_merge($alter, $foreign);
+        $status = ($comment !== null ? " COMMENT=" . q($comment) : "")
+            . ($engine ? " ENGINE=" . q($engine) : "")
+            . ($collation ? " COLLATE " . q($collation) : "")
+            . ($auto_increment != "" ? " AUTO_INCREMENT=$auto_increment" : "")
+        ;
+        if ($table == "") {
+            return queries("CREATE TABLE " . table($name) . " (\n" . implode(",\n", $alter) . "\n)$status$partitioning");
+        }
+        if ($table != $name) {
+            $alter[] = "RENAME TO " . table($name);
+        }
+        if ($status) {
+            $alter[] = ltrim($status);
+        }
         // Modification of generated columns
+        foreach ($alter as $key1 => $change) {
+            foreach ($modifyt as $key => $zn) {
+                $ss = substr($zn, 7, strpos($zn,"` ")-6);
+                $collumn = substr($change,  5, strlen($change)-5 );
+                $collumn1 = substr($change,  0, 4);
+                if (($collumn1=="DROP") & ($ss===$collumn)){
+                    unset($modifyt[$key]);
+                }
+            }
+        }
         foreach ($column_v as $zn) {
             foreach ($alter as $key1 => $change) {
                 $collumn = substr($change,  7, strpos($change, "` ") - 6);
@@ -734,8 +744,8 @@ if (!defined("DRIVER")) {
                 $alter[] = $zn;
             }
         }
-		return ($alter || $partitioning ? queries("ALTER TABLE " . table($table) . "\n" . implode(",\n", $alter) . $partitioning) : true);
-	}
+        return ($alter || $partitioning ? queries("ALTER TABLE " . table($table) . "\n" . implode(",\n", $alter) . $partitioning) : true);
+    }
 
 	/** Run commands to alter indexes
 	* @param string escaped table name
@@ -1025,14 +1035,6 @@ if (!defined("DRIVER")) {
 	*/
 	function show_status() {
 		return get_key_vals("SHOW STATUS");
-	}
-
-	/** Get replication status of master or slave
-	* @param string
-	* @return array ($name => $value)
-	*/
-	function replication_status($type) {
-		return get_rows("SHOW $type STATUS");
 	}
 
 	/** Convert field in select and edit

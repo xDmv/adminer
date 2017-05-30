@@ -481,8 +481,8 @@ function cookie($name, $value, $lifetime = 2592000) { // 2592000 - 30 days
 		. ($lifetime ? "; expires=" . gmdate("D, d M Y H:i:s", time() + $lifetime) . " GMT" : "")
 		. "; path=" . preg_replace('~\\?.*~', '', $_SERVER["REQUEST_URI"])
 		. ($HTTPS ? "; secure" : "")
-		. "; HttpOnly; SameSite=lax"
-	);
+		. "; HttpOnly; SameSite=lax",
+		false);
 }
 
 /** Restart stopped session
@@ -905,7 +905,7 @@ function input($field, $value, $function) {
 			}
 			echo "<textarea$attrs>" . h($value) . '</textarea>';
 		} elseif ($function == "json" || preg_match('~^jsonb?$~', $field["type"])) {
-			echo "<textarea$attrs cols='50' rows='12' class='jush-js'>" . h($value) . '</textarea>';
+			echo "<textarea$attrs cols='50' rows='12' class='jush-js'>" . h(str_replace('\\/', '/', json_encode(json_decode($value), JSON_PRETTY_PRINT))) . '</textarea>';
 		} else {
 			// int(3) is only a display hint
 			$maxlength = (!preg_match('~int~', $field["type"]) && preg_match('~^(\\d+)(,(\\d+))?$~', $field["length"], $match) ? ((preg_match("~binary~", $field["type"]) ? 2 : 1) * $match[1] + ($match[3] ? 1 : 0) + ($match[2] && !$field["unsigned"] ? 1 : 0)) : ($types[$field["type"]] ? $types[$field["type"]] + ($field["unsigned"] ? 0 : 1) : 0));

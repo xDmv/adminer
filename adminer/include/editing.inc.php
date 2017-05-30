@@ -138,19 +138,19 @@ function textarea($name, $value, $rows = 10, $cols = 80) {
 * @return null
 */
 function edit_type($key, $field, $collations, $foreign_keys = array(), $vir) {
-	global $structured_types, $types, $unsigned, $on_actions;
-	$type = $field["type"];
-	?>
-<td><select name="<?php echo h($key); ?>[type]" class="type" onfocus="lastType = selectValue(this);" onchange="editingTypeChange(this);"<?php echo on_help("getTarget(event).value", 1); ?> aria-labelledby="label-type"><?php
-if ($type && !isset($types[$type]) && !isset($foreign_keys[$type])) {
-	array_unshift($structured_types, $type);
-}
-if ($foreign_keys) {
-	$structured_types[lang('Foreign keys')] = $foreign_keys;
-}
-echo optionlist($structured_types, $type);
-?></select>
-<td><input name="<?php echo h($key); ?>[length]" value="<?php echo h($field["length"]); ?>" size="3" onfocus="editingLengthFocus(this);"<?php echo (!$field["length"] && preg_match('~var(char|binary)$~', $type) ? " class='required'" : ""); ?> onchange="editingLengthChange(this);" onkeyup="this.onchange();" aria-labelledby="label-length"><td class="options"><?php //! type="number" with enabled JavaScript
+    global $structured_types, $types, $unsigned, $on_actions;
+    $type = $field["type"];
+    ?>
+    <td><select name="<?php echo h($key); ?>[type]" class="type" onfocus="lastType = selectValue(this);" onchange="editingTypeChange(this);"<?php echo on_help("getTarget(event).value", 1); ?> aria-labelledby="label-type"><?php
+            if ($type && !isset($types[$type]) && !isset($foreign_keys[$type])) {
+                array_unshift($structured_types, $type);
+            }
+            if ($foreign_keys) {
+                $structured_types[lang('Foreign keys')] = $foreign_keys;
+            }
+            echo optionlist($structured_types, $type);
+            ?></select>
+    <td><input name="<?php echo h($key); ?>[length]" value="<?php echo h($field["length"]); ?>" size="3" onfocus="editingLengthFocus(this);"<?php echo (!$field["length"] && preg_match('~var(char|binary)$~', $type) ? " class='required'" : ""); ?> onchange="editingLengthChange(this);" onkeyup="this.onchange();" aria-labelledby="label-length"><td class="options"><?php //! type="number" with enabled JavaScript
     if ($field["is_virtual"]){
         textarea(h($key). "[virtual1]", $vir, $rows = 2, $cols = 40);
     }
@@ -238,59 +238,59 @@ function type_class($type) {
 * @return null
 */
 function edit_fields($fields, $collations, $type = "TABLE", $foreign_keys = array(), $comments = false, $showtable) {
-	global $connection, $inout;
-	$fields = array_values($fields);
-	?>
-<thead><tr class="wrap">
-<?php if ($type == "PROCEDURE") { ?><td>&nbsp;<?php } ?>
-<th id="label-name"><?php echo ($type == "TABLE" ? lang('Column name') : lang('Parameter name')); ?>
-<td id="label-type"><?php echo lang('Type'); ?><textarea id="enum-edit" rows="4" cols="12" wrap="off" style="display: none;" onblur="editingLengthBlur(this);"></textarea>
-<td id="label-length"><?php echo lang('Length'); ?>
-<td><?php echo lang('Options'); /* no label required, options have their own label */ ?>
-<?php if ($type == "TABLE") { ?>
-<td id="label-null">NULL
-<td><input type="radio" name="auto_increment_col" value=""><acronym id="label-ai" title="<?php echo lang('Auto Increment'); ?>">AI</acronym><?php echo doc_link(array(
-	'sql' => "example-auto-increment.html",
-	'sqlite' => "autoinc.html",
-	'pgsql' => "datatype.html#DATATYPE-SERIAL",
-	'mssql' => "ms186775.aspx",
-)); ?>
-<td id="label-default"><?php echo lang('Default value'); ?>
-<?php echo (support("comment") ? "<td id='label-comment'" . ($comments ? "" : " class='hidden'") . ">" . lang('Comment') : ""); ?>
-<?php } ?>
-<td><?php echo "<input type='image' class='icon' name='add[" . (support("move_col") ? 0 : count($fields)) . "]' src='../adminer/static/plus.gif' alt='+' title='" . lang('Add next') . "'>"; ?><script type="text/javascript">row_count = <?php echo count($fields); ?>;</script>
-</thead>
-<tbody onkeydown="return editingKeydown(event);">
-<?php
-	foreach ($fields as $i => $field) {
-		$i++;
-		$orig = $field[($_POST ? "orig" : "field")];
-		$display = (isset($_POST["add"][$i-1]) || (isset($field["field"]) && !$_POST["drop_col"][$i])) && (support("drop_col") || $orig == "");
-		?>
-<tr<?php echo ($display ? "" : " style='display: none;'"); ?>>
-<?php echo ($type == "PROCEDURE" ? "<td>" . html_select("fields[$i][inout]", explode("|", $inout), $field["inout"]) : ""); ?>
-<th><?php if ($display) { ?><input name="fields[<?php echo $i; ?>][field]" value="<?php echo h($field["field"]); ?>" onchange="editingNameChange(this);<?php echo ($field["field"] != "" || count($fields) > 1 ? '' : ' editingAddRow(this);" onkeyup="if (this.value) editingAddRow(this);'); ?>" maxlength="64" autocapitalize="off" aria-labelledby="label-name"><?php } ?>
-<input type="hidden" name="fields[<?php echo $i; ?>][orig]" value="<?php echo h($orig); ?>">
-<?php
-  $q = $showtable[$field["field"]];
-   edit_type("fields[$i]", $field, $collations, $foreign_keys, $q);
-?>
-<?php if ($type == "TABLE") { ?>
-<td><?php echo checkbox("fields[$i][null]", 1, $field["null"], "", "", "block", "label-null"); ?>
-<td><label class="block"><input type="radio" name="auto_increment_col" value="<?php echo $i; ?>"<?php if ($field["auto_increment"]) { ?> checked<?php } ?> onclick="var field = this.form['fields[' + this.value + '][field]']; if (!field.value) { field.value = 'id'; field.onchange(); }" aria-labelledby="label-ai"></label><td><?php
-echo checkbox("fields[$i][has_default]", 1, $field["has_default"], "", "", "", "label-default"); ?><input name="fields[<?php echo $i; ?>][default]" value="<?php echo h($field["default"]); ?>" onkeyup="keyupChange.call(this);" onchange="this.previousSibling.checked = true;" aria-labelledby="label-default">
-<?php echo (support("comment") ? "<td" . ($comments ? "" : " class='hidden'") . "><input name='fields[$i][comment]' value='" . h($field["comment"]) . "' maxlength='" . ($connection->server_info >= 5.5 ? 1024 : 255) . "' aria-labelledby='label-comment'>" : ""); ?>
-<?php } ?>
-<?php
-		echo "<td>";
-		echo (support("move_col") ?
-			"<input type='image' class='icon' name='add[$i]' src='../adminer/static/plus.gif' alt='+' title='" . lang('Add next') . "' onclick='return !editingAddRow(this, 1);'>&nbsp;"
-			. "<input type='image' class='icon' name='up[$i]' src='../adminer/static/up.gif' alt='^' title='" . lang('Move up') . "' onclick='return !editingMoveRow(this, 1);'>&nbsp;"
-			. "<input type='image' class='icon' name='down[$i]' src='../adminer/static/down.gif' alt='v' title='" . lang('Move down') . "' onclick='return !editingMoveRow(this, 0);'>&nbsp;"
-		: "");
-		echo ($orig == "" || support("drop_col") ? "<input type='image' class='icon' name='drop_col[$i]' src='../adminer/static/cross.gif' alt='x' title='" . lang('Remove') . "' onclick=\"return !editingRemoveRow(this, 'fields\$1[field]');\">" : "");
-		echo "\n";
-	}
+    global $connection, $inout;
+    $fields = array_values($fields);
+    ?>
+    <thead><tr class="wrap">
+        <?php if ($type == "PROCEDURE") { ?><td>&nbsp;<?php } ?>
+        <th id="label-name"><?php echo ($type == "TABLE" ? lang('Column name') : lang('Parameter name')); ?>
+        <td id="label-type"><?php echo lang('Type'); ?><textarea id="enum-edit" rows="4" cols="12" wrap="off" style="display: none;" onblur="editingLengthBlur(this);"></textarea>
+        <td id="label-length"><?php echo lang('Length'); ?>
+        <td><?php echo lang('Options'); /* no label required, options have their own label */ ?>
+            <?php if ($type == "TABLE") { ?>
+        <td id="label-null">NULL
+        <td><input type="radio" name="auto_increment_col" value=""><acronym id="label-ai" title="<?php echo lang('Auto Increment'); ?>">AI</acronym><?php echo doc_link(array(
+                'sql' => "example-auto-increment.html",
+                'sqlite' => "autoinc.html",
+                'pgsql' => "datatype.html#DATATYPE-SERIAL",
+                'mssql' => "ms186775.aspx",
+            )); ?>
+        <td id="label-default"><?php echo lang('Default value'); ?>
+            <?php echo (support("comment") ? "<td id='label-comment'" . ($comments ? "" : " class='hidden'") . ">" . lang('Comment') : ""); ?>
+            <?php } ?>
+        <td><?php echo "<input type='image' class='icon' name='add[" . (support("move_col") ? 0 : count($fields)) . "]' src='../adminer/static/plus.gif' alt='+' title='" . lang('Add next') . "'>"; ?><script type="text/javascript">row_count = <?php echo count($fields); ?>;</script>
+    </thead>
+    <tbody onkeydown="return editingKeydown(event);">
+    <?php
+    foreach ($fields as $i => $field) {
+        $i++;
+        $orig = $field[($_POST ? "orig" : "field")];
+        $display = (isset($_POST["add"][$i-1]) || (isset($field["field"]) && !$_POST["drop_col"][$i])) && (support("drop_col") || $orig == "");
+        ?>
+    <tr<?php echo ($display ? "" : " style='display: none;'"); ?>>
+        <?php echo ($type == "PROCEDURE" ? "<td>" . html_select("fields[$i][inout]", explode("|", $inout), $field["inout"]) : ""); ?>
+        <th><?php if ($display) { ?><input name="fields[<?php echo $i; ?>][field]" value="<?php echo h($field["field"]); ?>" onchange="editingNameChange(this);<?php echo ($field["field"] != "" || count($fields) > 1 ? '' : ' editingAddRow(this);" onkeyup="if (this.value) editingAddRow(this);'); ?>" maxlength="64" autocapitalize="off" aria-labelledby="label-name"><?php } ?>
+        <input type="hidden" name="fields[<?php echo $i; ?>][orig]" value="<?php echo h($orig); ?>">
+        <?php
+        $virtuale = $showtable[$field["field"]];
+        edit_type("fields[$i]", $field, $collations, $foreign_keys, $virtuale);
+        ?>
+        <?php if ($type == "TABLE") { ?>
+        <td><?php echo checkbox("fields[$i][null]", 1, $field["null"], "", "", "block", "label-null"); ?>
+        <td><label class="block"><input type="radio" name="auto_increment_col" value="<?php echo $i; ?>"<?php if ($field["auto_increment"]) { ?> checked<?php } ?> onclick="var field = this.form['fields[' + this.value + '][field]']; if (!field.value) { field.value = 'id'; field.onchange(); }" aria-labelledby="label-ai"></label><td><?php
+        echo checkbox("fields[$i][has_default]", 1, $field["has_default"], "", "", "", "label-default"); ?><input name="fields[<?php echo $i; ?>][default]" value="<?php echo h($field["default"]); ?>" onkeyup="keyupChange.call(this);" onchange="this.previousSibling.checked = true;" aria-labelledby="label-default">
+        <?php echo (support("comment") ? "<td" . ($comments ? "" : " class='hidden'") . "><input name='fields[$i][comment]' value='" . h($field["comment"]) . "' maxlength='" . ($connection->server_info >= 5.5 ? 1024 : 255) . "' aria-labelledby='label-comment'>" : ""); ?>
+    <?php } ?>
+        <?php
+        echo "<td>";
+        echo (support("move_col") ?
+            "<input type='image' class='icon' name='add[$i]' src='../adminer/static/plus.gif' alt='+' title='" . lang('Add next') . "' onclick='return !editingAddRow(this, 1);'>&nbsp;"
+            . "<input type='image' class='icon' name='up[$i]' src='../adminer/static/up.gif' alt='^' title='" . lang('Move up') . "' onclick='return !editingMoveRow(this, 1);'>&nbsp;"
+            . "<input type='image' class='icon' name='down[$i]' src='../adminer/static/down.gif' alt='v' title='" . lang('Move down') . "' onclick='return !editingMoveRow(this, 0);'>&nbsp;"
+            : "");
+        echo ($orig == "" || support("drop_col") ? "<input type='image' class='icon' name='drop_col[$i]' src='../adminer/static/cross.gif' alt='x' title='" . lang('Remove') . "' onclick=\"return !editingRemoveRow(this, 'fields\$1[field]');\">" : "");
+        echo "\n";
+    }
 }
 
 /** Move fields up and down or add field
